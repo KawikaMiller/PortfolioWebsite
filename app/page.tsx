@@ -1,6 +1,6 @@
+import Barcode from "./components/Barcode";
 import SunLeaf from "./components/SunLeaf";
 import ThemeShuffle from "./components/ThemeShuffle";
-import Vine from "./components/Vine";
 import {
   education,
   experience,
@@ -17,29 +17,46 @@ import {
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-// English label + Japanese label for each "sign".
 const nav = [
-  { id: "work", en: "Work", jp: "作品" },
-  { id: "projects", en: "Projects", jp: "個人開発" },
-  { id: "praise", en: "Praise", jp: "評価" },
-  { id: "log", en: "Record", jp: "実績" },
-  { id: "career", en: "Career", jp: "経歴" },
-  { id: "skills", en: "Skills", jp: "スキル" },
-  { id: "contact", en: "Contact", jp: "連絡" },
+  { id: "work", label: "Work" },
+  { id: "projects", label: "Projects" },
+  { id: "praise", label: "Praise" },
+  { id: "log", label: "Record" },
+  { id: "career", label: "Career" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
 ];
 
 const shortSkills = skills.flatMap((g) => g.items).filter((i) => i.length <= 18);
 
+// Entry counts for the section meta tags, taken from the real data so they never drift.
+const counts = [
+  projects.length,
+  sideProjects.length + teaching.length,
+  kudos.length,
+  trackRecord.length,
+  experience.length + education.length,
+  skills.length + 1,
+  null,
+];
+
 function Sign({ n }: { n: number }) {
-  const s = nav[n];
+  const c = counts[n];
   return (
-    <header className="sign-head">
-      <p className="sign-no">No.{pad(n + 1)}</p>
-      <h2>{s.en}</h2>
-      <span className="sign-jp" lang="ja">
-        {s.jp}
-      </span>
-    </header>
+    <>
+      <header className="sign-head">
+        <p className="sign-no">SEC.{pad(n + 1)}</p>
+        <h2>{nav[n].label}</h2>
+        <p className="sign-meta">{c === null ? "[ OPEN ]" : `[ ${pad(c)} ENTRIES ]`}</p>
+      </header>
+      <div className="rule" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <b />
+        <u />
+      </div>
+    </>
   );
 }
 
@@ -67,8 +84,11 @@ export default function Home() {
         Skip to content
       </a>
 
-      <p className="vert" aria-hidden="true" lang="ja">
-        ソフトウェアエンジニア・ポートフォリオ
+      <p className="vert" aria-hidden="true">
+        Kawika Miller // Full stack software engineer // Portfolio 2026 // Rev.A
+      </p>
+      <p className="vert right" aria-hidden="true">
+        .NET // TypeScript // AWS // Terraform // Security // AI-assisted engineering
       </p>
 
       <header className="top">
@@ -79,8 +99,7 @@ export default function Home() {
           <nav aria-label="Sections" className="top-nav">
             {nav.map((s) => (
               <a key={s.id} href={`#${s.id}`}>
-                {s.en}
-                <span lang="ja">{s.jp}</span>
+                {s.label}
               </a>
             ))}
           </nav>
@@ -90,18 +109,25 @@ export default function Home() {
 
       <main id="main">
         <section id="top" className="hero wrap">
+          <div className="shapes" aria-hidden="true">
+            <i className="sh-circle" />
+            <i className="sh-quarter" />
+            <i className="sh-tri" />
+            <span className="sh-stripes">
+              <b />
+              <b />
+              <b />
+            </span>
+          </div>
+
           <div className="hero-text">
             <p className="hud">
-              <span className="dot" aria-hidden="true" /> SYS.ONLINE // 35.6595°N 139.7004°E
+              <span className="dot" aria-hidden="true" /> SYS.ONLINE // KM-2026 // REV.A
             </p>
             <h1 className="name">
               <span>Kawika</span> <span className="name-2">Miller</span>
             </h1>
-            <p className="role">
-              <span lang="ja">ソフトウェアエンジニア</span>
-              <b aria-hidden="true">/</b>
-              {profile.title}
-            </p>
+            <p className="role">{profile.title}</p>
             <p className="tagline">{profile.tagline}</p>
             <p className="intro">{profile.intro}</p>
             <p className="actions">
@@ -121,12 +147,17 @@ export default function Home() {
           </div>
 
           <aside className="billboard" aria-label="Availability">
+            <p className="bb-row">
+              <span>Status</span>
+              <b>Available</b>
+            </p>
             <SunLeaf className="bb-art" />
             <p className="bb-top">Open to roles</p>
-            <p className="bb-jp" lang="ja">
-              お仕事募集中
-            </p>
             <p className="bb-meta">Hands-on engineering · .NET · TypeScript · AWS</p>
+            <div className="bb-code">
+              <Barcode seed={11} />
+              <span>KM-2026-A</span>
+            </div>
           </aside>
         </section>
 
@@ -134,8 +165,8 @@ export default function Home() {
           <div className="band band-a">
             <div className="band-track">
               <Run
-                items={["お仕事募集中", "OPEN TO ROLES", "ハンズオン・エンジニアリング", "HANDS-ON ENGINEERING"]}
-                sep="✦"
+                items={["OPEN TO ROLES", "HANDS-ON ENGINEERING", "FULL STACK ENGINEER", ".NET / TYPESCRIPT / AWS"]}
+                sep="///"
               />
             </div>
           </div>
@@ -157,7 +188,6 @@ export default function Home() {
 
         <section id="work" className="sec wrap">
           <Sign n={0} />
-          <Vine />
           <div className="posters">
             {projects.map((p, i) => (
               <article key={p.title} className={`poster c${i % 3}`}>
@@ -186,7 +216,6 @@ export default function Home() {
 
         <section id="projects" className="sec wrap">
           <Sign n={1} />
-          <Vine />
           <div className="shops">
             {sideProjects.map((p, i) => (
               <article key={p.title} className={`shop c${i % 3}`}>
@@ -227,7 +256,6 @@ export default function Home() {
 
         <section id="praise" className="sec wrap">
           <Sign n={2} />
-          <Vine />
           <div className="neons">
             {kudos.map((k, i) => (
               <figure key={k.text} className={`neon c${i % 3}`}>
@@ -244,7 +272,6 @@ export default function Home() {
 
         <section id="log" className="sec wrap">
           <Sign n={3} />
-          <Vine />
           <ol className="log">
             {trackRecord.map((t, i) => (
               <li key={t}>
@@ -257,7 +284,6 @@ export default function Home() {
 
         <section id="career" className="sec wrap">
           <Sign n={4} />
-          <Vine />
           <ol className="metro">
             {experience.map((e) => (
               <li key={e.company}>
@@ -286,7 +312,6 @@ export default function Home() {
 
         <section id="skills" className="sec wrap">
           <Sign n={5} />
-          <Vine />
           <dl className="rack">
             {skills.map((g, gi) => (
               <div key={g.group} className={`c${gi % 3}`}>
@@ -311,7 +336,6 @@ export default function Home() {
 
         <section id="contact" className="sec wrap contact">
           <Sign n={6} />
-          <Vine />
           <div className="open-sign">
             <p className="open" aria-hidden="true">
               OPEN
@@ -343,8 +367,14 @@ export default function Home() {
         </section>
       </main>
 
+      <div className="hazard" aria-hidden="true" />
       <footer className="wrap foot">
-        <span>© {profile.name}</span>
+        <span>
+          © {profile.name} {"//"} KM-2026 {"//"} Rev.A
+        </span>
+        <span className="foot-code" aria-hidden="true">
+          <Barcode seed={3} />
+        </span>
         <span>Colors shuffle with the button in the top bar.</span>
       </footer>
     </div>

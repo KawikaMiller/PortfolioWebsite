@@ -1,32 +1,16 @@
 import type { Metadata } from "next";
-import { Dela_Gothic_One, Share_Tech_Mono, Zen_Kaku_Gothic_New } from "next/font/google";
-import localFont from "next/font/local";
+import { Archivo, Martian_Mono } from "next/font/google";
 import "./globals.css";
 
-// Display: a fat Tokyo-signage gothic, used for headings and signs only.
-// Body: a clean gothic made to sit next to Japanese type. Mono: HUD-style microcopy.
-const display = Dela_Gothic_One({
-  weight: "400",
+// One variable grotesque does both jobs: set wide (font-stretch 125%) for headings and signs, normal
+// width for reading. A wide mono carries labels, serials and other small technical type.
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: "--font-display",
+  axes: ["wdth"],
+  variable: "--font-archivo",
 });
 
-// The Japanese glyphs for the same typeface, subset to just the characters used on the page.
-// Regenerate with `node scripts/fetch-ja-font.mjs` after editing any Japanese text.
-const displayJa = localFont({
-  src: "./fonts/DelaGothicOne-ja.woff2",
-  weight: "400",
-  variable: "--font-display-ja",
-});
-
-const body = Zen_Kaku_Gothic_New({
-  weight: ["400", "500", "700"],
-  subsets: ["latin"],
-  variable: "--font-body",
-});
-
-const mono = Share_Tech_Mono({
-  weight: "400",
+const mono = Martian_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 });
@@ -44,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${displayJa.variable} ${body.variable} ${mono.variable}`}
+      className={`${archivo.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>

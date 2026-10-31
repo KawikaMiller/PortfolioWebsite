@@ -17,8 +17,7 @@
   --panel: color-mix(in srgb, var(--fg) 7%, var(--bg));
   --line: color-mix(in srgb, var(--fg) 22%, transparent);
   --gut: clamp(1rem, 3.5vw, 2rem);
-  --f-display: var(--font-display), var(--font-display-ja), "Hiragino Kaku Gothic ProN", "Yu Gothic", Impact, sans-serif;
-  --f-body: var(--font-body), system-ui, sans-serif;
+  --f-body: var(--font-archivo), system-ui, sans-serif;
   --f-mono: var(--font-mono), ui-monospace, monospace;
 }
 
@@ -184,7 +183,9 @@ blockquote {
   top: 6.5rem;
   z-index: 5;
   writing-mode: vertical-rl;
-  font-family: var(--f-display);
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: 0.72rem;
   letter-spacing: 0.5em;
   color: var(--a1t);
@@ -223,7 +224,9 @@ blockquote {
   height: 2.5rem;
   background: var(--a1);
   color: var(--on-a1);
-  font-family: var(--f-display);
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: 0.95rem;
   text-decoration: none;
   clip-path: polygon(0.45rem 0, 100% 0, 100% calc(100% - 0.45rem), calc(100% - 0.45rem) 100%, 0 100%, 0 0.45rem);
@@ -241,8 +244,8 @@ blockquote {
 
 .top-nav a {
   display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
+  align-items: baseline;
+  gap: 0.4rem;
   padding: 0.25rem 0;
   color: var(--fg);
   text-decoration: none;
@@ -251,13 +254,6 @@ blockquote {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   line-height: 1.1;
-}
-
-.top-nav a span {
-  font-family: var(--f-display);
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
-  color: var(--a3t);
 }
 
 .top-nav a:hover {
@@ -376,8 +372,9 @@ blockquote {
 
 .name {
   margin-top: 0.8rem;
-  font-family: var(--f-display);
-  font-weight: 400;
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: clamp(2.5rem, 6.6vw, 4.9rem);
   line-height: 1.04;
   letter-spacing: -0.01em;
@@ -399,11 +396,6 @@ blockquote {
   font-weight: 700;
   font-size: clamp(1rem, 1.5vw, 1.2rem);
   color: var(--a2t);
-}
-
-.role b {
-  margin-inline: 0.6rem;
-  color: var(--a1t);
 }
 
 .tagline {
@@ -435,7 +427,9 @@ blockquote {
   background: var(--panel);
   border: 1px solid var(--line);
   color: var(--fg);
-  font-family: var(--f-display);
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: 0.85rem;
   text-decoration: none;
 }
@@ -533,19 +527,13 @@ blockquote {
 
 .bb-top {
   margin-top: 0.2rem;
-  font-family: var(--f-display);
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: 1.55rem;
   line-height: 1.1;
   color: var(--a1t);
   text-shadow: 0 0 14px color-mix(in srgb, var(--a1) 70%, transparent);
-}
-
-.bb-jp {
-  margin-top: 0.3rem;
-  font-family: var(--f-display);
-  font-size: 1.05rem;
-  letter-spacing: 0.22em;
-  color: var(--a3t);
 }
 
 .bb-meta {
@@ -623,7 +611,9 @@ blockquote {
   transform: rotate(-2.2deg);
   background: var(--a1);
   color: var(--on-a1);
-  font-family: var(--f-display);
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: 1rem;
   z-index: 1;
 }
@@ -689,7 +679,9 @@ blockquote {
 }
 
 .readouts dd {
-  font-family: var(--f-display);
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: 2rem;
   line-height: 1.1;
   color: var(--ct);
@@ -718,41 +710,12 @@ blockquote {
 }
 
 .sign-head h2 {
-  font-family: var(--f-display);
-  font-weight: 400;
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: clamp(1.9rem, 3.8vw, 2.7rem);
   line-height: 1.1;
   text-shadow: 0 0 20px color-mix(in srgb, var(--a2) 50%, transparent);
-}
-
-.sign-jp {
-  margin-left: auto;
-  padding: 0.1rem 0.55rem;
-  border: 1px solid var(--a3);
-  color: var(--a3t);
-  font-family: var(--f-display);
-  font-size: 0.95rem;
-  letter-spacing: 0.15em;
-}
-
-.vine {
-  display: block;
-  width: min(24rem, 100%);
-  height: auto;
-  margin: 0.3rem 0 1.5rem;
-}
-
-.vine-line {
-  fill: none;
-  stroke: var(--a3);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-}
-
-.vine-leaf {
-  fill: color-mix(in srgb, var(--a3) 40%, transparent);
-  stroke: var(--a3);
-  stroke-width: 1;
 }
 
 .fine {
@@ -788,7 +751,9 @@ blockquote {
 }
 
 .poster-no {
-  font-family: var(--f-display);
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: 2.3rem;
   line-height: 1;
 }
@@ -823,8 +788,9 @@ blockquote {
 
 .poster-body h3,
 .shop h3 {
-  font-family: var(--f-display);
-  font-weight: 400;
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   line-height: 1.25;
 }
 
@@ -1033,8 +999,9 @@ blockquote {
 
 .metro h3 {
   margin-top: 0.15rem;
-  font-family: var(--f-display);
-  font-weight: 400;
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: clamp(1.1rem, 1.8vw, 1.3rem);
   line-height: 1.3;
 }
@@ -1111,7 +1078,9 @@ blockquote {
   justify-self: start;
   padding: 0.3rem 1.2rem;
   border: 3px solid var(--a1);
-  font-family: var(--f-display);
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: clamp(2.2rem, 5vw, 3.4rem);
   line-height: 1.1;
   color: var(--a1t);
@@ -1128,7 +1097,9 @@ blockquote {
 
 .contact-mail {
   margin-top: 1rem;
-  font-family: var(--f-display);
+  font-family: var(--f-body);
+  font-stretch: 125%;
+  font-weight: 600;
   font-size: clamp(1.35rem, 3.6vw, 2.5rem);
   line-height: 1.15;
   overflow-wrap: anywhere;
@@ -1219,5 +1190,367 @@ blockquote {
 @keyframes blink {
   50% {
     opacity: 0.25;
+  }
+}
+
+/* =====================================================================
+   Marathon-inspired graphic layer
+   Wide expanded type, mono micro-typography, flat geometric shapes, livery
+   stripes, serial plates and barcodes, registration marks, hazard bars.
+   ===================================================================== */
+
+.name,
+.sign-head h2,
+.btn,
+.bb-top,
+.readouts dd,
+.logo {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.name {
+  font-size: clamp(2.1rem, 5vw, 3.9rem);
+  line-height: 1.04;
+}
+
+.sign-head h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.btn {
+  font-size: 0.8rem;
+}
+
+.poster-no {
+  letter-spacing: 0.02em;
+}
+
+/* numbered nav */
+.top-nav {
+  counter-reset: nav;
+}
+
+.top-nav a::before {
+  counter-increment: nav;
+  content: counter(nav, decimal-leading-zero);
+  color: var(--a1t);
+  font-size: 0.7rem;
+}
+
+/* vertical micro-text running down both edges */
+.vert {
+  font-family: var(--f-mono);
+  font-stretch: 100%;
+  font-weight: 400;
+  font-size: 0.66rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.85;
+  left: 0.9rem;
+}
+
+.vert.right {
+  left: auto;
+  right: 0.9rem;
+}
+
+/* section heads: code, title, entry count, then a straight stylized rule */
+.sign-head {
+  align-items: center;
+}
+
+.sign-meta {
+  margin-left: auto;
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.sec {
+  position: relative;
+}
+
+/* registration crosshair at each section's corner */
+.sec::before {
+  content: "+";
+  position: absolute;
+  left: calc(var(--gut) - 0.95rem);
+  top: -0.2rem;
+  font-family: var(--f-mono);
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--a1t);
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.6rem 0 1.6rem;
+}
+
+.rule i {
+  display: block;
+  height: 8px;
+  background: var(--a1);
+}
+
+.rule i:nth-child(1) {
+  width: 3rem;
+}
+
+.rule i:nth-child(2) {
+  width: 0.7rem;
+  background: var(--a2);
+}
+
+.rule i:nth-child(3) {
+  width: 0.7rem;
+  background: var(--a3);
+}
+
+.rule b {
+  flex: 1;
+  height: 8px;
+  background:
+    linear-gradient(var(--line), var(--line)) center / 100% 1px no-repeat,
+    repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 12px) center / 100% 7px no-repeat;
+}
+
+.rule u {
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--a3);
+}
+
+/* readout codes */
+.readouts {
+  counter-reset: m;
+}
+
+.readouts > div {
+  counter-increment: m;
+}
+
+.readouts > div::before {
+  content: "M." counter(m, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.2rem;
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* hero composition: flat geometric shapes and livery stripes behind the billboard */
+.hero {
+  position: relative;
+  isolation: isolate;
+}
+
+.shapes {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@media (min-width: 60rem) {
+  .shapes {
+    display: block;
+  }
+}
+
+.shapes i,
+.shapes b {
+  position: absolute;
+  display: block;
+}
+
+.sh-circle {
+  right: -3.5rem;
+  top: 0.5rem;
+  width: 17rem;
+  height: 17rem;
+  border-radius: 50%;
+  border: 2.4rem solid var(--a2);
+  opacity: 0.3;
+}
+
+.sh-quarter {
+  right: 8rem;
+  bottom: -2.5rem;
+  width: 10rem;
+  height: 10rem;
+  background: var(--a3);
+  border-radius: 100% 0 0 0;
+  opacity: 0.32;
+}
+
+.sh-tri {
+  right: 24rem;
+  top: 0.2rem;
+  width: 6.5rem;
+  height: 5.6rem;
+  background: var(--a1);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  opacity: 0.4;
+}
+
+.sh-stripes {
+  position: absolute;
+  right: 13.5rem;
+  top: -1rem;
+  display: flex;
+  gap: 0.45rem;
+  transform: skewX(-22deg);
+  opacity: 0.55;
+}
+
+.sh-stripes b {
+  position: static;
+  width: 1rem;
+  height: 15rem;
+}
+
+.sh-stripes b:nth-child(1) {
+  background: var(--a1);
+}
+
+.sh-stripes b:nth-child(2) {
+  background: var(--a2);
+}
+
+.sh-stripes b:nth-child(3) {
+  background: var(--a3);
+}
+
+.hud {
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+}
+
+/* billboard as an ID plate: status row, emblem, serial + barcode */
+.bb-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.bb-row b {
+  font-weight: 400;
+  color: var(--a3t);
+}
+
+.bb-top {
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+}
+
+.bb-meta {
+  font-size: 0.7rem;
+}
+
+.bb-code {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+  font-family: var(--f-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.barcode {
+  display: block;
+  flex: 1;
+  height: 1.6rem;
+  color: var(--fg);
+  opacity: 0.85;
+}
+
+/* hazard bar + footer */
+.hazard {
+  height: 0.7rem;
+  margin-top: 4rem;
+  background: repeating-linear-gradient(-45deg, var(--a3) 0 0.55rem, transparent 0.55rem 1.1rem);
+}
+
+.foot {
+  align-items: center;
+  margin-top: 0;
+  border-top: 0;
+  padding-top: 1.1rem;
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.foot-code {
+  flex: 1;
+  min-width: 6rem;
+  max-width: 14rem;
+}
+
+.foot-code .barcode {
+  height: 1.3rem;
+}
+
+.metro h3 {
+  text-transform: none;
+}
+
+.poster-body h3,
+.shop h3 {
+  text-transform: none;
+  font-stretch: 112%;
+}
+
+.contact-mail,
+.open {
+  letter-spacing: 0.01em;
+}
+
+.open {
+  font-size: clamp(2rem, 4.4vw, 3rem);
+}
+
+.contact-mail {
+  font-size: clamp(1.2rem, 3vw, 2.1rem);
+}
+
+/* keep the top bar on one row on desktop, even with Back and Reset showing */
+.top-nav {
+  gap: 0.95rem;
+}
+
+.top-nav a {
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+
+@media (min-width: 62rem) {
+  .top-in {
+    flex-wrap: nowrap;
+  }
+
+  .top-nav {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .shuffle {
+    flex-shrink: 0;
   }
 }
