@@ -1,3 +1,6 @@
+import SunLeaf from "./components/SunLeaf";
+import ThemeShuffle from "./components/ThemeShuffle";
+import Vine from "./components/Vine";
 import {
   education,
   experience,
@@ -12,215 +15,338 @@ import {
   trackRecord,
 } from "./content";
 
-export default function Home() {
+const pad = (n: number) => String(n).padStart(2, "0");
+
+// English label + Japanese label for each "sign".
+const nav = [
+  { id: "work", en: "Work", jp: "作品" },
+  { id: "projects", en: "Projects", jp: "個人開発" },
+  { id: "praise", en: "Praise", jp: "評価" },
+  { id: "log", en: "Record", jp: "実績" },
+  { id: "career", en: "Career", jp: "経歴" },
+  { id: "skills", en: "Skills", jp: "スキル" },
+  { id: "contact", en: "Contact", jp: "連絡" },
+];
+
+const shortSkills = skills.flatMap((g) => g.items).filter((i) => i.length <= 18);
+
+function Sign({ n }: { n: number }) {
+  const s = nav[n];
+  return (
+    <header className="sign-head">
+      <p className="sign-no">No.{pad(n + 1)}</p>
+      <h2>{s.en}</h2>
+      <span className="sign-jp" lang="ja">
+        {s.jp}
+      </span>
+    </header>
+  );
+}
+
+function Run({ items, sep }: { items: string[]; sep: string }) {
   return (
     <>
-      <header className="nav">
-        <div className="wrap nav-inner">
-          <a href="#top" className="brand">
-            {profile.name}
+      {[0, 1].map((n) => (
+        <span key={n} className="run-set">
+          {items.map((t) => (
+            <span key={`${n}-${t}`}>
+              {t}
+              <i>{sep}</i>
+            </span>
+          ))}
+        </span>
+      ))}
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+    <div className="page">
+      <a className="skip" href="#main">
+        Skip to content
+      </a>
+
+      <p className="vert" aria-hidden="true" lang="ja">
+        ソフトウェアエンジニア・ポートフォリオ
+      </p>
+
+      <header className="top">
+        <div className="wrap top-in">
+          <a href="#top" className="logo" aria-label={`${profile.name}, back to top`}>
+            <span>KM</span>
           </a>
-          <nav aria-label="Primary">
-            <a href="#work">Work</a>
-            <a href="#projects">Projects</a>
-            <a href="#recognition">Recognition</a>
-            <a href="#experience">Experience</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
+          <nav aria-label="Sections" className="top-nav">
+            {nav.map((s) => (
+              <a key={s.id} href={`#${s.id}`}>
+                {s.en}
+                <span lang="ja">{s.jp}</span>
+              </a>
+            ))}
           </nav>
+          <ThemeShuffle />
         </div>
       </header>
 
-      <main id="top">
-        <section className="wrap hero">
-          <p className="eyebrow">{profile.title}</p>
-          <h1>{profile.tagline}</h1>
-          <p className="lede">{profile.intro}</p>
-          <div className="cta">
-            <a className="btn primary" href="#work">
-              See my work
-            </a>
-            <a className="btn" href={`mailto:${profile.email}`}>
-              Get in touch
-            </a>
-            <a className="btn" href={profile.resume} download>
-              Download resume
-            </a>
+      <main id="main">
+        <section id="top" className="hero wrap">
+          <div className="hero-text">
+            <p className="hud">
+              <span className="dot" aria-hidden="true" /> SYS.ONLINE // 35.6595°N 139.7004°E
+            </p>
+            <h1 className="name">
+              <span>Kawika</span> <span className="name-2">Miller</span>
+            </h1>
+            <p className="role">
+              <span lang="ja">ソフトウェアエンジニア</span>
+              <b aria-hidden="true">/</b>
+              {profile.title}
+            </p>
+            <p className="tagline">{profile.tagline}</p>
+            <p className="intro">{profile.intro}</p>
+            <p className="actions">
+              <a className="btn primary" href={`mailto:${profile.email}`}>
+                Say hello
+              </a>
+              <a className="btn" href={profile.resume} download>
+                Resume PDF
+              </a>
+              <a className="btn" href={profile.github} rel="noopener noreferrer">
+                GitHub
+              </a>
+              <a className="btn" href={profile.linkedin} rel="noopener noreferrer">
+                LinkedIn
+              </a>
+            </p>
           </div>
-          <dl className="stats">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <dt>{s.value}</dt>
-                <dd>{s.label}</dd>
-              </div>
-            ))}
-          </dl>
+
+          <aside className="billboard" aria-label="Availability">
+            <SunLeaf className="bb-art" />
+            <p className="bb-top">Open to roles</p>
+            <p className="bb-jp" lang="ja">
+              お仕事募集中
+            </p>
+            <p className="bb-meta">Hands-on engineering · .NET · TypeScript · AWS</p>
+          </aside>
         </section>
 
-        <section id="work" className="wrap section">
-          <h2>Selected work</h2>
-          <div className="grid">
-            {projects.map((p) => (
-              <article key={p.title} className="card">
-                <p className="meta">{p.period}</p>
-                <h3>{p.title}</h3>
-                <p>{p.summary}</p>
-                <ul>
-                  {p.points.map((pt) => (
-                    <li key={pt}>{pt}</li>
-                  ))}
-                </ul>
-                <ul className="tags" aria-label="Technologies">
-                  {p.tags.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+        <div className="crossing" aria-hidden="true">
+          <div className="band band-a">
+            <div className="band-track">
+              <Run
+                items={["お仕事募集中", "OPEN TO ROLES", "ハンズオン・エンジニアリング", "HANDS-ON ENGINEERING"]}
+                sep="✦"
+              />
+            </div>
           </div>
-        </section>
+          <div className="band band-b">
+            <div className="band-track reverse">
+              <Run items={shortSkills} sep="//" />
+            </div>
+          </div>
+        </div>
 
-        <section id="projects" className="wrap section">
-          <h2>Side projects &amp; teaching</h2>
-          <div className="grid">
-            {sideProjects.map((p) => (
-              <article key={p.title} className="card">
-                <p className="meta">{p.period}</p>
-                <h3>{p.title}</h3>
-                <p>{p.summary}</p>
-                {p.points.length > 0 && (
+        <dl className="readouts wrap" aria-label="At a glance">
+          {stats.map((s) => (
+            <div key={s.label}>
+              <dd>{s.value}</dd>
+              <dt>{s.label}</dt>
+            </div>
+          ))}
+        </dl>
+
+        <section id="work" className="sec wrap">
+          <Sign n={0} />
+          <Vine />
+          <div className="posters">
+            {projects.map((p, i) => (
+              <article key={p.title} className={`poster c${i % 3}`}>
+                <div className="poster-side">
+                  <p className="poster-no">{pad(i + 1)}</p>
+                  <p className="poster-period">{p.period}</p>
+                  <ul className="stack" aria-label="Technologies">
+                    {p.tags.map((t) => (
+                      <li key={t}>{t}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="poster-body">
+                  <h3>{p.title}</h3>
+                  <p className="sum">{p.summary}</p>
                   <ul>
                     {p.points.map((pt) => (
                       <li key={pt}>{pt}</li>
                     ))}
                   </ul>
-                )}
-                <ul className="tags" aria-label="Technologies">
-                  {p.tags.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-                {p.href && (
-                  <p className="repo">
-                    <a href={p.href} rel="noopener noreferrer">
-                      View on GitHub →
-                    </a>
-                  </p>
-                )}
-              </article>
-            ))}
-            {teaching.map((t) => (
-              <article key={t.title} className="card">
-                <p className="meta">{t.role}</p>
-                <h3>{t.title}</h3>
-                <p>{t.summary}</p>
+                </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="recognition" className="wrap section">
-          <h2>Recognition</h2>
-          <div className="grid">
-            {kudos.map((k) => (
-              <figure key={k.text} className="card quote">
-                <p>{k.text}</p>
+        <section id="projects" className="sec wrap">
+          <Sign n={1} />
+          <Vine />
+          <div className="shops">
+            {sideProjects.map((p, i) => (
+              <article key={p.title} className={`shop c${i % 3}`}>
+                <h3>
+                  {p.href ? (
+                    <a href={p.href} rel="noopener noreferrer">
+                      {p.title} <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    p.title
+                  )}
+                </h3>
+                <div className="shop-body">
+                  <p className="meta">{p.period}</p>
+                  <p>{p.summary}</p>
+                  {p.points.length > 0 && (
+                    <ul>
+                      {p.points.map((pt) => (
+                        <li key={pt}>{pt}</li>
+                      ))}
+                    </ul>
+                  )}
+                  <p className="meta tags">{p.tags.join(" · ")}</p>
+                </div>
+              </article>
+            ))}
+            {teaching.map((t, i) => (
+              <article key={t.title} className={`shop c${(sideProjects.length + i) % 3}`}>
+                <h3>{t.title}</h3>
+                <div className="shop-body">
+                  <p className="meta">{t.role}</p>
+                  <p>{t.summary}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="praise" className="sec wrap">
+          <Sign n={2} />
+          <Vine />
+          <div className="neons">
+            {kudos.map((k, i) => (
+              <figure key={k.text} className={`neon c${i % 3}`}>
+                <blockquote>{k.text}</blockquote>
                 <figcaption>
-                  <strong>{k.from}</strong>
-                  <span className="meta">{k.context}</span>
+                  <b>{k.from}</b>
+                  <span>{k.context}</span>
                 </figcaption>
               </figure>
             ))}
           </div>
-          <h3 className="sub">Track record</h3>
-          <ul className="bonafides">
-            {trackRecord.map((b) => (
-              <li key={b}>{b}</li>
-            ))}
-          </ul>
+          <p className="fine">Paraphrased from internal messages and attributed by role.</p>
         </section>
 
-        <section id="experience" className="wrap section">
-          <h2>Experience</h2>
-          <div className="timeline">
+        <section id="log" className="sec wrap">
+          <Sign n={3} />
+          <Vine />
+          <ol className="log">
+            {trackRecord.map((t, i) => (
+              <li key={t}>
+                <span className="n">[{pad(i + 1)}]</span>
+                <span>{t}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section id="career" className="sec wrap">
+          <Sign n={4} />
+          <Vine />
+          <ol className="metro">
             {experience.map((e) => (
-              <article key={e.company}>
-                <div className="row">
-                  <h3>
-                    {e.role} <span className="at">· {e.company}</span>
-                  </h3>
-                  <p className="meta">{e.period}</p>
-                </div>
+              <li key={e.company}>
+                <p className="when">{e.period}</p>
+                <h3>
+                  {e.role} <span className="at">@ {e.company}</span>
+                </h3>
                 <ul>
                   {e.points.map((pt) => (
                     <li key={pt}>{pt}</li>
                   ))}
                 </ul>
-              </article>
-            ))}
-          </div>
-          <h3 className="sub">Education</h3>
-          <ul className="edu">
-            {education.map((e) => (
-              <li key={e.name}>
-                <span>
-                  <strong>{e.name}</strong>, {e.detail}
-                </span>
-                <span className="meta">{e.date}</span>
               </li>
             ))}
-          </ul>
+            {education.map((e) => (
+              <li key={e.name} className="edu">
+                <p className="when">{e.date}</p>
+                <h3>
+                  {e.name} <span className="at">· Education</span>
+                </h3>
+                <p>{e.detail}</p>
+              </li>
+            ))}
+          </ol>
         </section>
 
-        <section id="skills" className="wrap section">
-          <h2>Skills</h2>
-          <div className="skills">
-            {skills.map((g) => (
-              <div key={g.group}>
-                <h3>{g.group}</h3>
-                <ul className="tags">
+        <section id="skills" className="sec wrap">
+          <Sign n={5} />
+          <Vine />
+          <dl className="rack">
+            {skills.map((g, gi) => (
+              <div key={g.group} className={`c${gi % 3}`}>
+                <dt>{g.group}</dt>
+                <dd>
                   {g.items.map((i) => (
-                    <li key={i}>{i}</li>
+                    <span key={i}>{i}</span>
                   ))}
-                </ul>
+                </dd>
               </div>
             ))}
-          </div>
-          <h3 className="sub">Working familiarity</h3>
-          <ul className="tags">
-            {familiar.map((i) => (
-              <li key={i}>{i}</li>
-            ))}
-          </ul>
+            <div className="also">
+              <dt>Also encountered</dt>
+              <dd>
+                {familiar.map((i) => (
+                  <span key={i}>{i}</span>
+                ))}
+              </dd>
+            </div>
+          </dl>
         </section>
 
-        <section id="contact" className="wrap section contact">
-          <h2>Let&apos;s talk</h2>
-          <p className="lede">
-            Looking for hands-on engineering roles where I can build, with a
-            lean toward climate, conservation and teams that integrate AI into
-            how they work. The fastest way to reach me is email.
-          </p>
-          <div className="cta">
-            <a className="btn primary" href={`mailto:${profile.email}`}>
-              {profile.email}
-            </a>
-            <a className="btn" href={profile.resume} download>
-              Resume (PDF)
-            </a>
-            <a className="btn" href={profile.github} rel="noopener noreferrer">
-              GitHub
-            </a>
-            <a className="btn" href={profile.linkedin} rel="noopener noreferrer">
-              LinkedIn
-            </a>
+        <section id="contact" className="sec wrap contact">
+          <Sign n={6} />
+          <Vine />
+          <div className="open-sign">
+            <p className="open" aria-hidden="true">
+              OPEN
+            </p>
+            <div>
+              <p className="contact-lede">
+                Looking for hands-on engineering roles where I can build, with a lean toward climate,
+                conservation and teams that integrate AI into how they work.
+              </p>
+              <p className="contact-mail">
+                <a href={`mailto:${profile.email}`}>{profile.email}</a>
+              </p>
+              <p className="actions">
+                <a className="btn primary" href={`mailto:${profile.email}`}>
+                  Say hello
+                </a>
+                <a className="btn" href={profile.github} rel="noopener noreferrer">
+                  GitHub
+                </a>
+                <a className="btn" href={profile.linkedin} rel="noopener noreferrer">
+                  LinkedIn
+                </a>
+                <a className="btn" href={profile.resume} download>
+                  Resume PDF
+                </a>
+              </p>
+            </div>
           </div>
         </section>
       </main>
 
-      <footer className="wrap footer">
-        <p>© {profile.name}</p>
+      <footer className="wrap foot">
+        <span>© {profile.name}</span>
+        <span>Colors shuffle with the button in the top bar.</span>
       </footer>
-    </>
+    </div>
   );
 }
