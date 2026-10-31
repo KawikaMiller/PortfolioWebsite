@@ -1554,3 +1554,227 @@ blockquote {
     flex-shrink: 0;
   }
 }
+
+/* =====================================================================
+   Marathon pass 2: the remaining sections get the same graphic language.
+   ===================================================================== */
+
+/* side projects: part code in the header bar */
+.shop-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: var(--c);
+  color: var(--on);
+}
+
+.shop h3 {
+  background: none;
+  color: inherit;
+}
+
+.code {
+  padding-right: 0.8rem;
+  font-family: var(--f-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+}
+
+/* praise: transmission logs with a header strip and signal bars */
+.neon {
+  border-radius: 0;
+  box-shadow:
+    0 0 10px color-mix(in srgb, var(--c) 38%, transparent),
+    inset 0 0 12px color-mix(in srgb, var(--c) 12%, transparent);
+}
+
+.neon-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -1.15rem -1.3rem 0;
+  padding: 0.38rem 1.3rem;
+  background: var(--c);
+  color: var(--on);
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+.sig {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 0.85rem;
+}
+
+.sig i {
+  display: block;
+  width: 3px;
+  background: currentColor;
+}
+
+.sig i:nth-child(1) {
+  height: 20%;
+}
+.sig i:nth-child(2) {
+  height: 40%;
+}
+.sig i:nth-child(3) {
+  height: 60%;
+}
+.sig i:nth-child(4) {
+  height: 80%;
+}
+.sig i:nth-child(5) {
+  height: 100%;
+}
+
+/* track record: a terminal window */
+.term {
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--a2);
+  background: var(--panel);
+}
+
+.term-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.45rem 0.85rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.term-dots {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.term-dots i {
+  display: block;
+  width: 0.55rem;
+  height: 0.55rem;
+}
+
+.term-dots i:nth-child(1) {
+  background: var(--a1);
+}
+.term-dots i:nth-child(2) {
+  background: var(--a2);
+}
+.term-dots i:nth-child(3) {
+  background: var(--a3);
+}
+
+.term-bar b {
+  font-weight: 400;
+  color: var(--a2t);
+}
+
+.term-bar em {
+  margin-left: auto;
+  font-style: normal;
+  color: var(--muted);
+}
+
+.term .log {
+  border: 0;
+  background: none;
+  padding: 0.3rem 1rem 0.6rem;
+}
+
+.log li {
+  padding-left: 0.85rem;
+  border-left: 3px solid var(--tk, var(--a1));
+  margin-top: 0.1rem;
+}
+
+.log li:nth-child(3n + 1) {
+  --tk: var(--a1);
+}
+.log li:nth-child(3n + 2) {
+  --tk: var(--a2);
+}
+.log li:nth-child(3n) {
+  --tk: var(--a3);
+}
+
+/* career: deployment codes, durations, and a ruler beside the line */
+.metro .when {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.8rem;
+}
+
+.when .tag {
+  padding: 0.12rem 0.55rem;
+  background: var(--a1);
+  color: var(--on-a1);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+}
+
+.metro li.edu .when .tag {
+  background: var(--a2);
+  color: var(--on-a2);
+}
+
+.when .dur {
+  color: var(--muted);
+}
+
+.metro::after {
+  content: "";
+  position: absolute;
+  left: 1.35rem;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 9px;
+  background: repeating-linear-gradient(0deg, var(--line) 0 1px, transparent 1px 14px);
+  pointer-events: none;
+}
+
+/* skills: slot codes */
+.rack {
+  counter-reset: slot;
+}
+
+.rack > div {
+  counter-increment: slot;
+}
+
+.rack dt::before {
+  content: "SLOT." counter(slot, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+
+/* contact: a comms panel */
+.comms {
+  border: 2px solid var(--a1);
+  background: var(--panel);
+}
+
+.comms-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0.95rem;
+  background: var(--a1);
+  color: var(--on-a1);
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+}
+
+.comms .open-sign {
+  padding: 1.6rem 1.4rem 1.7rem;
+}

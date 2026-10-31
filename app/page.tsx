@@ -27,6 +27,20 @@ const nav = [
   { id: "contact", label: "Contact" },
 ];
 
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+// Whole months between the two ends of a "Mon YYYY – Mon YYYY" period.
+function monthsIn(period: string) {
+  const at = (s: string) => {
+    const [m, y] = s.split(" ");
+    return Number(y) * 12 + MONTHS.indexOf(m);
+  };
+  const [a, b] = period.split(" – ");
+  return at(b) - at(a);
+}
+
+const eduCodes = ["CERT.01", "DEG.01"];
+
 const shortSkills = skills.flatMap((g) => g.items).filter((i) => i.length <= 18);
 
 // Entry counts for the section meta tags, taken from the real data so they never drift.
@@ -219,15 +233,20 @@ export default function Home() {
           <div className="shops">
             {sideProjects.map((p, i) => (
               <article key={p.title} className={`shop c${i % 3}`}>
-                <h3>
-                  {p.href ? (
-                    <a href={p.href} rel="noopener noreferrer">
-                      {p.title} <span aria-hidden="true">↗</span>
-                    </a>
-                  ) : (
-                    p.title
-                  )}
-                </h3>
+                <div className="shop-head">
+                  <h3>
+                    {p.href ? (
+                      <a href={p.href} rel="noopener noreferrer">
+                        {p.title} <span aria-hidden="true">↗</span>
+                      </a>
+                    ) : (
+                      p.title
+                    )}
+                  </h3>
+                  <span className="code" aria-hidden="true">
+                    P.{pad(i + 1)}
+                  </span>
+                </div>
                 <div className="shop-body">
                   <p className="meta">{p.period}</p>
                   <p>{p.summary}</p>
@@ -244,7 +263,12 @@ export default function Home() {
             ))}
             {teaching.map((t, i) => (
               <article key={t.title} className={`shop c${(sideProjects.length + i) % 3}`}>
-                <h3>{t.title}</h3>
+                <div className="shop-head">
+                  <h3>{t.title}</h3>
+                  <span className="code" aria-hidden="true">
+                    T.{pad(i + 1)}
+                  </span>
+                </div>
                 <div className="shop-body">
                   <p className="meta">{t.role}</p>
                   <p>{t.summary}</p>
@@ -259,6 +283,16 @@ export default function Home() {
           <div className="neons">
             {kudos.map((k, i) => (
               <figure key={k.text} className={`neon c${i % 3}`}>
+                <div className="neon-head" aria-hidden="true">
+                  <span>RX.{pad(i + 1)}</span>
+                  <span className="sig">
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                </div>
                 <blockquote>{k.text}</blockquote>
                 <figcaption>
                   <b>{k.from}</b>
@@ -272,22 +306,39 @@ export default function Home() {
 
         <section id="log" className="sec wrap">
           <Sign n={3} />
-          <ol className="log">
-            {trackRecord.map((t, i) => (
-              <li key={t}>
-                <span className="n">[{pad(i + 1)}]</span>
-                <span>{t}</span>
-              </li>
-            ))}
-          </ol>
+          <div className="term">
+            <div className="term-bar" aria-hidden="true">
+              <span className="term-dots">
+                <i />
+                <i />
+                <i />
+              </span>
+              <b>DEBRIEF.LOG</b>
+              <em>
+                {pad(trackRecord.length)} RECORDS {"//"} CLEARANCE: PUBLIC
+              </em>
+            </div>
+            <ol className="log">
+              {trackRecord.map((t, i) => (
+                <li key={t}>
+                  <span className="n">[{pad(i + 1)}]</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </section>
 
         <section id="career" className="sec wrap">
           <Sign n={4} />
           <ol className="metro">
-            {experience.map((e) => (
+            {experience.map((e, i) => (
               <li key={e.company}>
-                <p className="when">{e.period}</p>
+                <p className="when">
+                  <span className="tag">DEPLOY.{pad(experience.length - i)}</span>
+                  {e.period}
+                  <span className="dur">[ {pad(monthsIn(e.period))} MO ]</span>
+                </p>
                 <h3>
                   {e.role} <span className="at">@ {e.company}</span>
                 </h3>
@@ -298,9 +349,12 @@ export default function Home() {
                 </ul>
               </li>
             ))}
-            {education.map((e) => (
+            {education.map((e, i) => (
               <li key={e.name} className="edu">
-                <p className="when">{e.date}</p>
+                <p className="when">
+                  <span className="tag">{eduCodes[i] ?? "CERT"}</span>
+                  {e.date}
+                </p>
                 <h3>
                   {e.name} <span className="at">· Education</span>
                 </h3>
@@ -336,32 +390,38 @@ export default function Home() {
 
         <section id="contact" className="sec wrap contact">
           <Sign n={6} />
-          <div className="open-sign">
-            <p className="open" aria-hidden="true">
-              OPEN
-            </p>
-            <div>
-              <p className="contact-lede">
-                Looking for hands-on engineering roles where I can build, with a lean toward climate,
-                conservation and teams that integrate AI into how they work.
+          <div className="comms">
+            <div className="comms-bar" aria-hidden="true">
+              <span>COMMS {"//"} CHANNEL OPEN</span>
+              <span>KM-2026</span>
+            </div>
+            <div className="open-sign">
+              <p className="open" aria-hidden="true">
+                OPEN
               </p>
-              <p className="contact-mail">
-                <a href={`mailto:${profile.email}`}>{profile.email}</a>
-              </p>
-              <p className="actions">
-                <a className="btn primary" href={`mailto:${profile.email}`}>
-                  Say hello
-                </a>
-                <a className="btn" href={profile.github} rel="noopener noreferrer">
-                  GitHub
-                </a>
-                <a className="btn" href={profile.linkedin} rel="noopener noreferrer">
-                  LinkedIn
-                </a>
-                <a className="btn" href={profile.resume} download>
-                  Resume PDF
-                </a>
-              </p>
+              <div>
+                <p className="contact-lede">
+                  Looking for hands-on engineering roles where I can build, with a lean toward climate,
+                  conservation and teams that integrate AI into how they work.
+                </p>
+                <p className="contact-mail">
+                  <a href={`mailto:${profile.email}`}>{profile.email}</a>
+                </p>
+                <p className="actions">
+                  <a className="btn primary" href={`mailto:${profile.email}`}>
+                    Say hello
+                  </a>
+                  <a className="btn" href={profile.github} rel="noopener noreferrer">
+                    GitHub
+                  </a>
+                  <a className="btn" href={profile.linkedin} rel="noopener noreferrer">
+                    LinkedIn
+                  </a>
+                  <a className="btn" href={profile.resume} download>
+                    Resume PDF
+                  </a>
+                </p>
+              </div>
             </div>
           </div>
         </section>
