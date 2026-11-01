@@ -215,13 +215,21 @@ export default function Home() {
                   </ul>
                 </div>
                 <div className="poster-body">
-                  <h3>{p.title}</h3>
-                  <p className="sum">{p.summary}</p>
-                  <ul>
-                    {p.points.map((pt) => (
-                      <li key={pt}>{pt}</li>
-                    ))}
-                  </ul>
+                  <header className="poster-head">
+                    <h3>{p.title}</h3>
+                    <p className="sum">{p.summary}</p>
+                  </header>
+                  <div className="poster-points">
+                    <p className="points-label">
+                      <span>Highlights</span>
+                      <span aria-hidden="true">[ {pad(p.points.length)} ]</span>
+                    </p>
+                    <ul>
+                      {p.points.map((pt) => (
+                        <li key={pt}>{pt}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </article>
             ))}
