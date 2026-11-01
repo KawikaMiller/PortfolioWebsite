@@ -8,9 +8,9 @@ export const profile = {
   name: "Kawika Miller",
   title: "Full Stack Software Engineer",
   tagline:
-    "I build secure, scalable systems, and I'm happiest hands-on in the code.",
+    "I build secure, scalable systems, and I can lead the team that ships them.",
   intro:
-    "Full stack engineer with about three and a half years of professional experience across C#/.NET, TypeScript, React and AWS. I stepped into engineering leadership when my team needed it, and found I missed building. I'm returning to hands-on engineering on purpose.",
+    "Full stack engineer with about three and a half years of professional experience across C#/.NET, TypeScript, React and AWS. I also stepped into engineering management when my team needed it, so I'm equally at home writing the code or leading the people who do.",
   email: "hello@kawikamiller.com",
   resume: "/Kawika_Miller_Resume.pdf",
   github: "https://github.com/KawikaMiller",
@@ -212,8 +212,7 @@ export const trackRecord = [
   "When asked to explain failures, separated real defects from correct system behavior with data instead of accepting the framing.",
   "Wrote bug reports with acceptance criteria specifying what kind of test proves the fix, including when a mocked test cannot.",
   "Unblocked a whole team by tracing a messaging-broker connection failure to namespace and interface type mismatches.",
-  "Wrote knowledge-transfer documents so integrations could change owners without losing context.",
-  "Output: 15 Confluence documents, 2 research spikes, 4 sprint reports.",
+  "Output: 15 Confluence documents and 2 research spikes.",
 ];
 
 export const teaching = [
@@ -263,11 +262,10 @@ export const experience = [
     company: "Adoreal, Inc.",
     period: "Sep 2025 – Sep 2026",
     points: [
-      "Led the Consumer team (up to four developers, QA, design and product partners) on a healthcare EMR platform, owning sprint planning, 1:1s, mentoring and interviewing, while shipping production code across a multi-repo platform (regularly five to ten repositories).",
+      "Led the Consumer team (up to four developers, QA, design and product partners) on a healthcare EMR platform, owning sprint planning, 1:1s, mentoring and interviewing, while shipping production code across a multi-repo platform (regularly five to ten repositories), inside a globally distributed organization.",
       "Stood up three .NET microservices from empty repositories with the team, owning the Terraform for a new microservice at 99.99%+ reliability across 168K+ monthly events.",
       "Reviewed 240+ pull requests for teammates and championed test-driven development, growing automated coverage across controllers, services and event handlers.",
       "Triaged 190+ stories, sub-tasks and bugs at a 94% completion rate, and acted as de facto product manager for an AI automation team (2 epics, 40+ tickets).",
-      "Trained two newly hired engineering managers on the release process, escalated risks and concerns to the executive team, and worked day to day with a globally distributed organization.",
     ],
   },
   {
