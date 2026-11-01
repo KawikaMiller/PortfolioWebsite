@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import SunLeaf from "./SunLeaf";
 import { Monogram, Planet, Reticle, Scope, Shield, Topology } from "./Emblems";
 import { Circuit, Fingerprint, HexCluster, IsoStack, OrbWeb, Radar, Sigil, Spectrum } from "./Emblems2";
-import FingerprintDie from "../../components/FingerprintDie";
+import FingerprintDie from "./FingerprintDie";
 import Gyroscope from "./Gyroscope";
 import Terrain from "./Terrain";
 import Wireframe from "./Wireframe";

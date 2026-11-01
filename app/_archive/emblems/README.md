@@ -3,7 +3,7 @@
 Candidate artwork for the hero ID plate, kept for later. **Nothing here is imported by the site**:
 the folder name starts with an underscore, so Next.js does not route it, and no live file references it.
 
-The shipped badge is `app/components/FingerprintDie.tsx` (fingerprint pressed onto a chip).
+The shipped badge is `app/components/ProfileDie.tsx` (avatar silhouette on a chip). The fingerprint-on-a-chip badge now lives here as `FingerprintDie.tsx` with its generator `fingerprint.ts`.
 
 Contents:
 

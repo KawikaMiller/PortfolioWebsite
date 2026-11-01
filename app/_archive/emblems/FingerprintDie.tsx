@@ -1,7 +1,7 @@
-import { type FingerprintOptions, ridges, toPath } from "../lib/fingerprint";
+import { type FingerprintOptions, ridges, toPath } from "./fingerprint";
 
 // Hero badge art: a fingerprint pressed onto a chip. The die and its traces sit behind a procedurally
-// generated loop-type print (see lib/fingerprint.ts), with a scan bar sweeping across it.
+// generated loop-type print (see fingerprint.ts), with a scan bar sweeping across it.
 const OPT: FingerprintOptions = {
   cx: 200,
   cy: 165,

@@ -1,6 +1,6 @@
 import Barcode from "./components/Barcode";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./components/Icons";
-import FingerprintDie from "./components/FingerprintDie";
+import ProfileDie from "./components/ProfileDie";
 import ThemeShuffle from "./components/ThemeShuffle";
 import {
   education,
@@ -165,7 +165,7 @@ LinkedIn
               <span>Status</span>
               <b>Available</b>
             </p>
-            <FingerprintDie />
+            <ProfileDie />
             <p className="bb-top">Open to work</p>
             <p className="bb-meta">.NET · TypeScript · AWS</p>
             <div className="bb-code">
