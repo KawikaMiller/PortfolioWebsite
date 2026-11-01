@@ -1,7 +1,9 @@
 import Barcode from "./components/Barcode";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./components/Icons";
 import ProfileDie from "./components/ProfileDie";
+import ModeToggle from "./components/ModeToggle";
 import ThemeShuffle from "./components/ThemeShuffle";
+import ThemeSwitch from "./components/ThemeSwitch";
 import {
   education,
   experience,
@@ -22,11 +24,11 @@ const pad = (n: number) => String(n).padStart(2, "0");
 // the entry counts. To reorder the page, move an entry here and move its <section> below to match.
 const sections = [
   { id: "skills", label: "Skills", count: skills.length + 1 },
-  { id: "praise", label: "Praise", count: kudos.length },
-  { id: "career", label: "Career", count: experience.length + education.length },
+  { id: "kudos", label: "Kudos", count: kudos.length },
+  { id: "career", label: "Career", count: experience.length + teaching.length + education.length },
   { id: "work", label: "Work", count: projects.length },
   { id: "log", label: "Record", count: trackRecord.length },
-  { id: "projects", label: "Projects", count: sideProjects.length + teaching.length },
+  { id: "projects", label: "Projects", count: sideProjects.length },
   { id: "contact", label: "Contact", count: null as number | null },
 ];
 
@@ -111,6 +113,8 @@ export default function Home() {
             ))}
           </nav>
           <ThemeShuffle />
+          <ModeToggle />
+          <ThemeSwitch />
         </div>
       </header>
 
@@ -167,7 +171,6 @@ LinkedIn
             </p>
             <ProfileDie />
             <p className="bb-top">Open to work</p>
-            <p className="bb-meta">.NET · TypeScript · AWS</p>
             <div className="bb-code">
               <Barcode seed={11} />
               <span>KM-2026-A</span>
@@ -224,8 +227,8 @@ LinkedIn
           </dl>
         </section>
 
-        <section id="praise" className="sec wrap">
-          <Sign id="praise" />
+        <section id="kudos" className="sec wrap">
+          <Sign id="kudos" />
           <div className="neons">
             {kudos.map((k, i) => (
               <figure key={k.text} className={`neon c${i % 3}`}>
@@ -268,6 +271,18 @@ LinkedIn
                     <li key={pt}>{pt}</li>
                   ))}
                 </ul>
+              </li>
+            ))}
+            {teaching.map((t, i) => (
+              <li key={t.title} className="edu">
+                <p className="when">
+                  <span className="tag">TEACH.{pad(i + 1)}</span>
+                  {t.period}
+                </p>
+                <h3>
+                  {t.title} <span className="at">· {t.role}</span>
+                </h3>
+                <p>{t.summary}</p>
               </li>
             ))}
             {education.map((e, i) => (
@@ -354,8 +369,9 @@ LinkedIn
                 <div className="shop-head">
                   <h3>
                     {p.href ? (
-                      <a href={p.href} rel="noopener noreferrer">
+                      <a href={p.href} target="_blank" rel="noopener noreferrer">
                         {p.title} <span aria-hidden="true">↗</span>
+                        <span className="sr-only"> (opens in a new tab)</span>
                       </a>
                     ) : (
                       p.title
@@ -376,20 +392,6 @@ LinkedIn
                     </ul>
                   )}
                   <p className="meta tags">{p.tags.join(" · ")}</p>
-                </div>
-              </article>
-            ))}
-            {teaching.map((t, i) => (
-              <article key={t.title} className={`shop c${(sideProjects.length + i) % 3}`}>
-                <div className="shop-head">
-                  <h3>{t.title}</h3>
-                  <span className="code" aria-hidden="true">
-                    T.{pad(i + 1)}
-                  </span>
-                </div>
-                <div className="shop-body">
-                  <p className="meta">{t.role}</p>
-                  <p>{t.summary}</p>
                 </div>
               </article>
             ))}

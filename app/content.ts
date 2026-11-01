@@ -157,7 +157,8 @@ export const sideProjects: Project[] = [
     tags: ["C#", ".NET 10", "Avalonia", "Claude Code"],
   },
   {
-    title: "Windows 11 audio visualizer",
+    title: "Waverider",
+    href: "https://waverider.kawikamiller.com",
     period: "In design",
     summary:
       "A modern take on classic media-player equalizer visuals, reacting to system audio output via loopback capture and FFT analysis.",
@@ -218,13 +219,15 @@ export const trackRecord = [
 export const teaching = [
   {
     title: "UPLIFT Foundation",
-    role: "Volunteer instructor",
+    role: "Instructor & Software Engineer",
+    period: "Apr 2023 – Present",
     summary:
-      "Teaching recently graduated high school and early college students HTML, CSS, JavaScript, Entity Framework, Agile, SOLID and OOP, including stepping in on short notice to cover an ASP.NET Core MVC class.",
+      "Teaching recently graduated high school and early college students HTML, CSS, JavaScript, Entity Framework, Agile, SOLID and OOP, including stepping in on short notice to cover an ASP.NET Core MVC class. Also on call as a software engineer, contributing to my own projects and to other members' projects.",
   },
   {
     title: "Code Fellows",
-    role: "Teaching assistant, 2023 – 2024",
+    role: "Teaching assistant",
+    period: "2023 – 2024",
     summary:
       "Returned to the full-stack program I had completed as a teaching assistant, within a year of graduating.",
   },
