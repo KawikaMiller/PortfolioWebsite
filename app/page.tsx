@@ -7,13 +7,13 @@ import ThemeSwitch from "./components/ThemeSwitch";
 import {
   education,
   experience,
+  featuredKudo,
   familiar,
   kudos,
   profile,
   projects,
   sideProjects,
   skills,
-  stats,
   teaching,
   trackRecord,
 } from "./content";
@@ -194,14 +194,15 @@ LinkedIn
           </div>
         </div>
 
-        <dl className="readouts wrap" aria-label="At a glance">
-          {stats.map((s) => (
-            <div key={s.label}>
-              <dd>{s.value}</dd>
-              <dt>{s.label}</dt>
-            </div>
-          ))}
-        </dl>
+        <figure className="pull wrap">
+          <blockquote>{featuredKudo.text}</blockquote>
+          <figcaption>
+            <b>{featuredKudo.from}</b>
+            <span>{featuredKudo.context}</span>
+            <span>Paraphrased</span>
+          </figcaption>
+          <p className="pull-lead">{featuredKudo.lead}</p>
+        </figure>
 
         <section id="skills" className="sec wrap">
           <Sign id="skills" />

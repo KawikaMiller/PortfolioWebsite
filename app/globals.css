@@ -593,49 +593,6 @@ blockquote {
   opacity: 0.85;
 }
 
-/* ---------- readouts ---------- */
-.readouts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: 1rem 1.2rem;
-  margin-block: 1.6rem 0;
-}
-
-.readouts > div {
-  padding: 0.3rem 0 0.3rem 0.9rem;
-  border-left: 4px solid var(--c, var(--a1));
-}
-
-.readouts > div:nth-child(3n + 1) {
-  --c: var(--a1);
-  --ct: var(--a1t);
-}
-
-.readouts > div:nth-child(3n + 2) {
-  --c: var(--a2);
-  --ct: var(--a2t);
-}
-
-.readouts > div:nth-child(3n) {
-  --c: var(--a3);
-  --ct: var(--a3t);
-}
-
-.readouts dd {
-  font-family: var(--f-body);
-  font-stretch: 125%;
-  font-weight: 600;
-  font-size: 2rem;
-  line-height: 1.1;
-  color: var(--ct);
-}
-
-.readouts dt {
-  margin-top: 0.15rem;
-  color: var(--muted);
-  font-size: 0.92rem;
-}
-
 /* ---------- section signs ---------- */
 .sec {
   margin-top: clamp(3rem, 7vw, 5rem);
@@ -1129,7 +1086,6 @@ blockquote {
 .sign-head h2,
 .btn,
 .bb-top,
-.readouts dd,
 .logo {
   text-transform: uppercase;
   letter-spacing: 0.02em;
@@ -1250,25 +1206,6 @@ blockquote {
   width: 8px;
   height: 8px;
   border: 1.5px solid var(--a3);
-}
-
-/* readout codes */
-.readouts {
-  counter-reset: m;
-}
-
-.readouts > div {
-  counter-increment: m;
-}
-
-.readouts > div::before {
-  content: "M." counter(m, decimal-leading-zero);
-  display: block;
-  margin-bottom: 0.2rem;
-  font-family: var(--f-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  color: var(--muted);
 }
 
 /* hero composition: flat geometric shapes and livery stripes behind the billboard */
