@@ -1472,6 +1472,23 @@ blockquote {
   letter-spacing: 0.03em;
 }
 
+/* phones: no sideways-scrolling strip (it clipped links and was easy to miss); the links wrap onto a second row */
+@media (max-width: 61.99rem) {
+  .top-nav {
+    flex-wrap: wrap;
+    gap: 0 0.8rem;
+    overflow: visible;
+    white-space: normal;
+  }
+
+  .top-nav a {
+    flex: none;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.01em;
+  }
+}
+
 @media (min-width: 62rem) {
   .top-in {
     flex-wrap: nowrap;
