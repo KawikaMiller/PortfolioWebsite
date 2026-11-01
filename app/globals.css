@@ -977,6 +977,7 @@ blockquote {
 
 .rack > div {
   display: grid;
+  align-items: center;
   gap: 0.5rem 1.5rem;
   padding: 0.85rem 0;
   border-bottom: 1px solid var(--line);
@@ -984,12 +985,11 @@ blockquote {
 
 @media (min-width: 52rem) {
   .rack > div {
-    grid-template-columns: 12.5rem minmax(0, 1fr);
+    grid-template-columns: 17rem minmax(0, 1fr);
   }
 }
 
 .rack dt {
-  align-self: start;
   padding-left: 0.7rem;
   border-left: 4px solid var(--c, var(--line));
   font-family: var(--f-mono);

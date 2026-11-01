@@ -1,4 +1,5 @@
 import Barcode from "./components/Barcode";
+import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./components/Icons";
 import FingerprintDie from "./components/FingerprintDie";
 import ThemeShuffle from "./components/ThemeShuffle";
 import {
@@ -63,15 +64,6 @@ function Sign({ id }: { id: string }) {
         <u />
       </div>
     </>
-  );
-}
-
-function MailIcon() {
-  return (
-    <svg className="btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" strokeWidth="2" />
-      <path d="M3 7l9 7 9-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="miter" />
-    </svg>
   );
 }
 
@@ -150,15 +142,21 @@ export default function Home() {
                 <MailIcon />
                 Email me
               </a>
-              <a className="btn" href={profile.resume} download>
-                Resume PDF
-              </a>
-              <a className="btn" href={profile.github} rel="noopener noreferrer">
-                GitHub
-              </a>
-              <a className="btn" href={profile.linkedin} rel="noopener noreferrer">
-                LinkedIn
-              </a>
+              <a className="btn" href={profile.resume} target="_blank" rel="noopener noreferrer">
+<DownloadIcon />
+Resume PDF
+<span className="sr-only"> (opens in a new tab)</span>
+</a>
+              <a className="btn" href={profile.github} target="_blank" rel="noopener noreferrer">
+<GitHubIcon />
+GitHub
+<span className="sr-only"> (opens in a new tab)</span>
+</a>
+              <a className="btn" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+<LinkedInIcon />
+LinkedIn
+<span className="sr-only"> (opens in a new tab)</span>
+</a>
             </p>
           </div>
 
@@ -422,15 +420,21 @@ export default function Home() {
                     <MailIcon />
                 Email me
                   </a>
-                  <a className="btn" href={profile.github} rel="noopener noreferrer">
-                    GitHub
-                  </a>
-                  <a className="btn" href={profile.linkedin} rel="noopener noreferrer">
-                    LinkedIn
-                  </a>
-                  <a className="btn" href={profile.resume} download>
-                    Resume PDF
-                  </a>
+                  <a className="btn" href={profile.github} target="_blank" rel="noopener noreferrer">
+<GitHubIcon />
+GitHub
+<span className="sr-only"> (opens in a new tab)</span>
+</a>
+                  <a className="btn" href={profile.linkedin} target="_blank" rel="noopener noreferrer">
+<LinkedInIcon />
+LinkedIn
+<span className="sr-only"> (opens in a new tab)</span>
+</a>
+                  <a className="btn" href={profile.resume} target="_blank" rel="noopener noreferrer">
+<DownloadIcon />
+Resume PDF
+<span className="sr-only"> (opens in a new tab)</span>
+</a>
                 </p>
               </div>
             </div>
