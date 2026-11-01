@@ -166,8 +166,8 @@ LinkedIn
               <b>Available</b>
             </p>
             <FingerprintDie />
-            <p className="bb-top">Open to roles</p>
-            <p className="bb-meta">Engineer or manager · .NET · TypeScript · AWS</p>
+            <p className="bb-top">Open to work</p>
+            <p className="bb-meta">.NET · TypeScript · AWS</p>
             <div className="bb-code">
               <Barcode seed={11} />
               <span>KM-2026-A</span>
@@ -179,7 +179,7 @@ LinkedIn
           <div className="band band-a">
             <div className="band-track">
               <Run
-                items={["OPEN TO ROLES", "ENGINEER + MANAGER", "FULL STACK ENGINEER", ".NET / TYPESCRIPT / AWS"]}
+                items={["OPEN TO WORK", "FULL STACK ENGINEER", ".NET / TYPESCRIPT / AWS"]}
                 sep="///"
               />
             </div>
