@@ -519,12 +519,6 @@ blockquote {
   background: color-mix(in srgb, var(--a3) 75%, transparent);
 }
 
-.bb-art {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 .bb-top {
   margin-top: 0.2rem;
   font-family: var(--f-body);
@@ -541,50 +535,6 @@ blockquote {
   font-family: var(--f-mono);
   font-size: 0.78rem;
   color: var(--muted);
-}
-
-/* sun + leaves */
-.sl-rays line {
-  stroke: var(--a3);
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-
-.sl-rays {
-  transform-origin: 200px 168px;
-}
-
-.sl-sun-fill {
-  fill: var(--a3);
-  opacity: 0.16;
-}
-
-.sl-sun {
-  fill: none;
-  stroke: var(--a3);
-  stroke-width: 3;
-}
-
-.sl-sun-in {
-  fill: var(--a3);
-  opacity: 0.9;
-}
-
-.sl-leaf path {
-  fill: color-mix(in srgb, var(--a2) 26%, transparent);
-  stroke: var(--a2);
-  stroke-width: 2.5;
-  stroke-linejoin: round;
-}
-
-.sl-leaf path.rib {
-  fill: none;
-  stroke-width: 1.6;
-  opacity: 0.85;
-}
-
-.sl-seed {
-  fill: var(--a1);
 }
 
 /* ---------- crossing ticker bands ---------- */
@@ -1126,15 +1076,6 @@ blockquote {
     animation-duration: 64s;
   }
 
-  .sl-rays {
-    animation: spin 70s linear infinite;
-  }
-
-  .sl-leaf {
-    transform-origin: 0 0;
-    animation: sway 6s ease-in-out infinite alternate;
-  }
-
   .bb-top,
   .open {
     animation: flicker 5.5s steps(1, end) infinite;
@@ -1154,21 +1095,6 @@ blockquote {
 @keyframes run {
   to {
     transform: translateX(-50%);
-  }
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes sway {
-  from {
-    transform: rotate(-3deg);
-  }
-  to {
-    transform: rotate(3deg);
   }
 }
 
@@ -1777,4 +1703,58 @@ blockquote {
 
 .comms .open-sign {
   padding: 1.6rem 1.4rem 1.7rem;
+}
+
+/* =====================================================================
+   Hero badge artwork (fingerprint pressed onto a chip)
+   ===================================================================== */
+.art {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.art-s1 { stroke: var(--a1); fill: none; }
+.art-s2 { stroke: var(--a2); fill: none; }
+.art-s3 { stroke: var(--a3); fill: none; }
+.art-sl { stroke: var(--line); fill: none; }
+.art-f1 { fill: var(--a1); }
+.art-f2 { fill: var(--a2); }
+.art-f3 { fill: var(--a3); }
+.art-fb { fill: var(--bg); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .art-flow {
+    stroke-dasharray: 6 8;
+    animation: art-flow 1.4s linear infinite;
+  }
+
+  .art-blink {
+    animation: art-blink 1.6s steps(1, end) infinite;
+  }
+
+  .art-scan {
+    animation: art-scan 3.4s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes art-flow {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+
+@keyframes art-blink {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes art-scan {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(222px);
+  }
 }

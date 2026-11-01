@@ -1,5 +1,5 @@
 import Barcode from "./components/Barcode";
-import SunLeaf from "./components/SunLeaf";
+import FingerprintDie from "./components/FingerprintDie";
 import ThemeShuffle from "./components/ThemeShuffle";
 import {
   education,
@@ -165,7 +165,7 @@ export default function Home() {
               <span>Status</span>
               <b>Available</b>
             </p>
-            <SunLeaf className="bb-art" />
+            <FingerprintDie />
             <p className="bb-top">Open to roles</p>
             <p className="bb-meta">Hands-on engineering · .NET · TypeScript · AWS</p>
             <div className="bb-code">

@@ -1,0 +1,199 @@
+/* Scratch styles for the /emblems comparison page. Safe to delete with the route. */
+.em { display: block; width: 100%; height: auto; }
+.s1 { stroke: var(--a1); fill: none; }
+.s2 { stroke: var(--a2); fill: none; }
+.s3 { stroke: var(--a3); fill: none; }
+.sl { stroke: var(--line); fill: none; }
+.sf { stroke: var(--fg); fill: none; }
+.f1 { fill: var(--a1); }
+.f2 { fill: var(--a2); }
+.f3 { fill: var(--a3); }
+.fb { fill: var(--bg); }
+.ff { fill: var(--fg); }
+
+.gallery { display: grid; gap: 2.2rem 1.8rem; padding-block: 1.5rem 4rem; }
+@media (min-width: 46rem) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 76rem) { .gallery { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.gallery figure { margin: 0; }
+.gallery .billboard { transform: none; }
+.gallery figcaption { margin-top: 1.1rem; }
+.gallery figcaption b { display: block; font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--a1t); }
+.gallery figcaption p { margin-top: 0.3rem; color: var(--muted); font-size: 0.95rem; }
+.intro-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 1.5rem 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .em-spin { transform-origin: 200px 165px; animation: em-spin 60s linear infinite; }
+  .em-rev { transform-origin: 200px 165px; animation: em-spin 40s linear infinite reverse; }
+  .em-flow { stroke-dasharray: 6 8; animation: em-flow 1.4s linear infinite; }
+  .em-wave { animation: em-wave 5s linear infinite; }
+  .em-sweep { animation: em-sweep 4s linear infinite; }
+  .em-blink { animation: em-blink 1.6s steps(1, end) infinite; }
+}
+@keyframes em-spin { to { transform: rotate(360deg); } }
+@keyframes em-flow { to { stroke-dashoffset: -14; } }
+@keyframes em-wave { to { transform: translateX(-160px); } }
+@keyframes em-sweep { from { transform: translateX(0); } to { transform: translateX(300px); } }
+@keyframes em-blink { 50% { opacity: 0.2; } }
+
+/* floating switch for the live badge study */
+.emblem-switch {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 200;
+  display: flex;
+  align-items: stretch;
+  gap: 0.35rem;
+  padding: 0.4rem;
+  background: var(--bg);
+  border: 2px solid var(--a3);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--a3) 40%, transparent);
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+}
+.emblem-tag {
+  align-self: center;
+  padding: 0 0.4rem;
+  color: var(--a3t);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.emblem-next,
+.emblem-step {
+  background: var(--a3);
+  color: var(--on-a3);
+  border: 0;
+  padding: 0.45rem 0.7rem;
+  font: inherit;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.emblem-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 15rem;
+}
+.emblem-next b {
+  font-weight: 500;
+}
+.emblem-count {
+  margin-left: auto;
+  opacity: 0.75;
+}
+.emblem-step {
+  padding-inline: 0.65rem;
+}
+.emblem-next:hover,
+.emblem-step:hover {
+  background: var(--a1);
+  color: var(--on-a1);
+}
+@media (max-width: 40rem) {
+  .emblem-tag {
+    display: none;
+  }
+  .emblem-next {
+    min-width: 0;
+  }
+  .emblem-switch {
+    left: 1rem;
+    right: 1rem;
+    justify-content: space-between;
+  }
+}
+
+/* animations for the second batch */
+@media (prefers-reduced-motion: no-preference) {
+  .em-radar { transform-origin: 200px 165px; animation: em-spin 4.5s linear infinite; }
+  .em-ping { animation: em-ping 4.5s ease-out infinite; }
+  .em-scan { animation: em-scan 3.2s ease-in-out infinite alternate; }
+  .em-bar { transform-box: fill-box; transform-origin: bottom center; animation: em-bar 1s ease-in-out infinite alternate; }
+}
+@keyframes em-ping { 0% { opacity: 1; } 70% { opacity: 0.15; } 100% { opacity: 0.15; } }
+@keyframes em-scan { from { transform: translateY(0); } to { transform: translateY(262px); } }
+@keyframes em-bar { from { transform: scaleY(0.28); } to { transform: scaleY(1); } }
+
+/* fingerprint + die: scan bar sweeping down the print */
+@media (prefers-reduced-motion: no-preference) {
+  .em-scan-fp { animation: em-scan-fp 3.4s ease-in-out infinite alternate; }
+}
+@keyframes em-scan-fp { from { transform: translateY(0); } to { transform: translateY(222px); } }
+
+/* styles for SunLeaf (the original sun-and-lotus badge), moved here from globals.css */
+.bb-art {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* sun + leaves */
+.sl-rays line {
+  stroke: var(--a3);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.sl-rays {
+  transform-origin: 200px 168px;
+}
+
+.sl-sun-fill {
+  fill: var(--a3);
+  opacity: 0.16;
+}
+
+.sl-sun {
+  fill: none;
+  stroke: var(--a3);
+  stroke-width: 3;
+}
+
+.sl-sun-in {
+  fill: var(--a3);
+  opacity: 0.9;
+}
+
+.sl-leaf path {
+  fill: color-mix(in srgb, var(--a2) 26%, transparent);
+  stroke: var(--a2);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.sl-leaf path.rib {
+  fill: none;
+  stroke-width: 1.6;
+  opacity: 0.85;
+}
+
+.sl-seed {
+  fill: var(--a1);
+}
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .sl-rays {
+    animation: spin 70s linear infinite;
+  }
+
+  .sl-leaf {
+    transform-origin: 0 0;
+    animation: sway 6s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(-3deg);
+  }
+  to {
+    transform: rotate(3deg);
+  }
+}
