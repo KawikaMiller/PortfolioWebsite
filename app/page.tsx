@@ -17,14 +17,16 @@ import {
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
-const nav = [
-  { id: "work", label: "Work" },
-  { id: "projects", label: "Projects" },
-  { id: "praise", label: "Praise" },
-  { id: "log", label: "Record" },
-  { id: "career", label: "Career" },
-  { id: "skills", label: "Skills" },
-  { id: "contact", label: "Contact" },
+// The order of this list is the order of the page: it drives the top nav, the SEC.0n numbers and
+// the entry counts. To reorder the page, move an entry here and move its <section> below to match.
+const sections = [
+  { id: "skills", label: "Skills", count: skills.length + 1 },
+  { id: "praise", label: "Praise", count: kudos.length },
+  { id: "career", label: "Career", count: experience.length + education.length },
+  { id: "work", label: "Work", count: projects.length },
+  { id: "log", label: "Record", count: trackRecord.length },
+  { id: "projects", label: "Projects", count: sideProjects.length + teaching.length },
+  { id: "contact", label: "Contact", count: null as number | null },
 ];
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -43,25 +45,15 @@ const eduCodes = ["CERT.01", "DEG.01"];
 
 const shortSkills = skills.flatMap((g) => g.items).filter((i) => i.length <= 18);
 
-// Entry counts for the section meta tags, taken from the real data so they never drift.
-const counts = [
-  projects.length,
-  sideProjects.length + teaching.length,
-  kudos.length,
-  trackRecord.length,
-  experience.length + education.length,
-  skills.length + 1,
-  null,
-];
-
-function Sign({ n }: { n: number }) {
-  const c = counts[n];
+function Sign({ id }: { id: string }) {
+  const n = sections.findIndex((x) => x.id === id);
+  const { label, count } = sections[n];
   return (
     <>
       <header className="sign-head">
         <p className="sign-no">SEC.{pad(n + 1)}</p>
-        <h2>{nav[n].label}</h2>
-        <p className="sign-meta">{c === null ? "[ OPEN ]" : `[ ${pad(c)} ENTRIES ]`}</p>
+        <h2>{label}</h2>
+        <p className="sign-meta">{count === null ? "[ OPEN ]" : `[ ${pad(count)} ENTRIES ]`}</p>
       </header>
       <div className="rule" aria-hidden="true">
         <i />
@@ -111,7 +103,7 @@ export default function Home() {
             <span>KM</span>
           </a>
           <nav aria-label="Sections" className="top-nav">
-            {nav.map((s) => (
+            {sections.map((s) => (
               <a key={s.id} href={`#${s.id}`}>
                 {s.label}
               </a>
@@ -200,8 +192,93 @@ export default function Home() {
           ))}
         </dl>
 
+        <section id="skills" className="sec wrap">
+          <Sign id="skills" />
+          <dl className="rack">
+            {skills.map((g, gi) => (
+              <div key={g.group} className={`c${gi % 3}`}>
+                <dt>{g.group}</dt>
+                <dd>
+                  {g.items.map((i) => (
+                    <span key={i}>{i}</span>
+                  ))}
+                </dd>
+              </div>
+            ))}
+            <div className="also">
+              <dt>Also encountered</dt>
+              <dd>
+                {familiar.map((i) => (
+                  <span key={i}>{i}</span>
+                ))}
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <section id="praise" className="sec wrap">
+          <Sign id="praise" />
+          <div className="neons">
+            {kudos.map((k, i) => (
+              <figure key={k.text} className={`neon c${i % 3}`}>
+                <div className="neon-head" aria-hidden="true">
+                  <span>RX.{pad(i + 1)}</span>
+                  <span className="sig">
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                </div>
+                <blockquote>{k.text}</blockquote>
+                <figcaption>
+                  <b>{k.from}</b>
+                  <span>{k.context}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="fine">Paraphrased from internal messages and attributed by role.</p>
+        </section>
+
+        <section id="career" className="sec wrap">
+          <Sign id="career" />
+          <ol className="metro">
+            {experience.map((e, i) => (
+              <li key={e.company}>
+                <p className="when">
+                  <span className="tag">DEPLOY.{pad(experience.length - i)}</span>
+                  {e.period}
+                  <span className="dur">[ {pad(monthsIn(e.period))} MO ]</span>
+                </p>
+                <h3>
+                  {e.role} <span className="at">@ {e.company}</span>
+                </h3>
+                <ul>
+                  {e.points.map((pt) => (
+                    <li key={pt}>{pt}</li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+            {education.map((e, i) => (
+              <li key={e.name} className="edu">
+                <p className="when">
+                  <span className="tag">{eduCodes[i] ?? "CERT"}</span>
+                  {e.date}
+                </p>
+                <h3>
+                  {e.name} <span className="at">· Education</span>
+                </h3>
+                <p>{e.detail}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
         <section id="work" className="sec wrap">
-          <Sign n={0} />
+          <Sign id="work" />
           <div className="posters">
             {projects.map((p, i) => (
               <article key={p.title} className={`poster c${i % 3}`}>
@@ -236,8 +313,33 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="log" className="sec wrap">
+          <Sign id="log" />
+          <div className="term">
+            <div className="term-bar" aria-hidden="true">
+              <span className="term-dots">
+                <i />
+                <i />
+                <i />
+              </span>
+              <b>DEBRIEF.LOG</b>
+              <em>
+                {pad(trackRecord.length)} RECORDS {"//"} CLEARANCE: PUBLIC
+              </em>
+            </div>
+            <ol className="log">
+              {trackRecord.map((t, i) => (
+                <li key={t}>
+                  <span className="n">[{pad(i + 1)}]</span>
+                  <span>{t}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
         <section id="projects" className="sec wrap">
-          <Sign n={1} />
+          <Sign id="projects" />
           <div className="shops">
             {sideProjects.map((p, i) => (
               <article key={p.title} className={`shop c${i % 3}`}>
@@ -286,118 +388,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="praise" className="sec wrap">
-          <Sign n={2} />
-          <div className="neons">
-            {kudos.map((k, i) => (
-              <figure key={k.text} className={`neon c${i % 3}`}>
-                <div className="neon-head" aria-hidden="true">
-                  <span>RX.{pad(i + 1)}</span>
-                  <span className="sig">
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                    <i />
-                  </span>
-                </div>
-                <blockquote>{k.text}</blockquote>
-                <figcaption>
-                  <b>{k.from}</b>
-                  <span>{k.context}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-          <p className="fine">Paraphrased from internal messages and attributed by role.</p>
-        </section>
-
-        <section id="log" className="sec wrap">
-          <Sign n={3} />
-          <div className="term">
-            <div className="term-bar" aria-hidden="true">
-              <span className="term-dots">
-                <i />
-                <i />
-                <i />
-              </span>
-              <b>DEBRIEF.LOG</b>
-              <em>
-                {pad(trackRecord.length)} RECORDS {"//"} CLEARANCE: PUBLIC
-              </em>
-            </div>
-            <ol className="log">
-              {trackRecord.map((t, i) => (
-                <li key={t}>
-                  <span className="n">[{pad(i + 1)}]</span>
-                  <span>{t}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section id="career" className="sec wrap">
-          <Sign n={4} />
-          <ol className="metro">
-            {experience.map((e, i) => (
-              <li key={e.company}>
-                <p className="when">
-                  <span className="tag">DEPLOY.{pad(experience.length - i)}</span>
-                  {e.period}
-                  <span className="dur">[ {pad(monthsIn(e.period))} MO ]</span>
-                </p>
-                <h3>
-                  {e.role} <span className="at">@ {e.company}</span>
-                </h3>
-                <ul>
-                  {e.points.map((pt) => (
-                    <li key={pt}>{pt}</li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-            {education.map((e, i) => (
-              <li key={e.name} className="edu">
-                <p className="when">
-                  <span className="tag">{eduCodes[i] ?? "CERT"}</span>
-                  {e.date}
-                </p>
-                <h3>
-                  {e.name} <span className="at">· Education</span>
-                </h3>
-                <p>{e.detail}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section id="skills" className="sec wrap">
-          <Sign n={5} />
-          <dl className="rack">
-            {skills.map((g, gi) => (
-              <div key={g.group} className={`c${gi % 3}`}>
-                <dt>{g.group}</dt>
-                <dd>
-                  {g.items.map((i) => (
-                    <span key={i}>{i}</span>
-                  ))}
-                </dd>
-              </div>
-            ))}
-            <div className="also">
-              <dt>Also encountered</dt>
-              <dd>
-                {familiar.map((i) => (
-                  <span key={i}>{i}</span>
-                ))}
-              </dd>
-            </div>
-          </dl>
-        </section>
-
         <section id="contact" className="sec wrap contact">
-          <Sign n={6} />
+          <Sign id="contact" />
           <div className="comms">
             <div className="comms-bar" aria-hidden="true">
               <span>COMMS {"//"} CHANNEL OPEN</span>
