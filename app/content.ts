@@ -10,7 +10,7 @@ export const profile = {
   tagline:
     "I build secure, scalable systems, and I can lead the team that ships them.",
   intro:
-    "Full stack engineer with about three and a half years of professional experience across C#/.NET, TypeScript, React and AWS. I also stepped into engineering management when my team needed it, so I'm equally at home writing the code or leading the people who do.",
+    "Full stack engineer with about three and a half years of professional experience across C#/.NET, TypeScript, React and AWS. Equally at home writing the code or leading the people who do.",
   email: "hello@kawikamiller.com",
   resume: "/Kawika_Miller_Resume.pdf",
   github: "https://github.com/KawikaMiller",
