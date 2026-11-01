@@ -1002,6 +1002,8 @@ blockquote {
 .rack dd {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
   gap: 0.4rem 0.45rem;
 }
 
@@ -1793,4 +1795,12 @@ blockquote {
 .poster-points ul {
   margin-top: 0;
   font-size: 0.95rem;
+}
+
+/* envelope icon on the primary email buttons */
+.btn-icon {
+  width: 1.05em;
+  height: 1.05em;
+  margin-right: 0.55em;
+  vertical-align: -0.17em;
 }

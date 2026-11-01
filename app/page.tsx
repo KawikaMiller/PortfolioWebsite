@@ -66,6 +66,15 @@ function Sign({ id }: { id: string }) {
   );
 }
 
+function MailIcon() {
+  return (
+    <svg className="btn-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <rect x="3" y="5" width="18" height="14" fill="none" stroke="currentColor" strokeWidth="2" />
+      <path d="M3 7l9 7 9-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="miter" />
+    </svg>
+  );
+}
+
 function Run({ items, sep }: { items: string[]; sep: string }) {
   return (
     <>
@@ -138,7 +147,8 @@ export default function Home() {
             <p className="intro">{profile.intro}</p>
             <p className="actions">
               <a className="btn primary" href={`mailto:${profile.email}`}>
-                Say hello
+                <MailIcon />
+                Email me
               </a>
               <a className="btn" href={profile.resume} download>
                 Resume PDF
@@ -409,7 +419,8 @@ export default function Home() {
                 </p>
                 <p className="actions">
                   <a className="btn primary" href={`mailto:${profile.email}`}>
-                    Say hello
+                    <MailIcon />
+                Email me
                   </a>
                   <a className="btn" href={profile.github} rel="noopener noreferrer">
                     GitHub
