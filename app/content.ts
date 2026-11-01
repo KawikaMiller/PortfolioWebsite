@@ -17,13 +17,6 @@ export const profile = {
   linkedin: "https://linkedin.com/in/kawikamiller",
 };
 
-export const stats = [
-  { value: "3", label: "services stood up from an empty repo, with my team" },
-  { value: "294", label: "pull requests authored in 11 months" },
-  { value: "240+", label: "teammate pull requests reviewed" },
-  { value: "1M+", label: "requests/month on endpoints I helped harden" },
-];
-
 export type Project = {
   title: string;
   period: string;
@@ -159,9 +152,9 @@ export const sideProjects: Project[] = [
   {
     title: "Waverider",
     href: "https://waverider.kawikamiller.com",
-    period: "In design",
+    period: "Open source",
     summary:
-      "A modern take on classic media-player equalizer visuals, reacting to system audio output via loopback capture and FFT analysis.",
+      "A Windows 11 audio visualizer in the spirit of classic media-player equalizers. It reacts to system audio or a single app's output through loopback capture and FFT analysis, and shows now-playing info and playback controls from whatever media app you're using.",
     points: [],
     tags: ["C#", "WinUI 3", "NAudio", "SkiaSharp"],
   },
@@ -177,6 +170,15 @@ export const sideProjects: Project[] = [
 
 // Paraphrased from internal messages, attributed by role only. No verbatim quotes, names,
 // customers or incident details, in line with the former employer's NDA.
+// Shown as the featured pull-quote under the hero instead of in the Kudos grid. A paraphrase, so
+// it is never rendered inside quotation marks.
+export const featuredKudo = {
+  lead: "On the team I led as Engineering Manager",
+  text: "This team doubled their sprint velocity and set the gold standard for what a sprint should look like.",
+  from: "VP of Engineering, Adoreal",
+  context: "Two months after I joined, Nov 2025",
+};
+
 export const kudos = [
   {
     text: "Credited for defensive security work that proved itself in production, and for the stability and speed fixes around it.",
@@ -192,11 +194,6 @@ export const kudos = [
     text: "Called the first customer go-live on the messaging service my team built the smoothest the company had done, noting how much faster the team could now turn around feedback.",
     from: "Company executive",
     context: "Messaging service launch, 2026",
-  },
-  {
-    text: "Told my team's sprint set the gold standard for sprint execution, after the team roughly doubled its velocity.",
-    from: "VP of Engineering, as relayed in a sprint retro",
-    context: "Early sprint, 2025",
   },
   {
     text: "Praised in a product demo for stability, security and speed improvements.",

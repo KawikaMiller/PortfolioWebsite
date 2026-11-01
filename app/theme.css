@@ -99,7 +99,6 @@ html[data-theme="pro"] {
   .sec::before,
   .sign-no,
   .sign-meta,
-  .readouts > div::before,
   .rack dt::before,
   .top-nav a::before,
   .billboard::before,
@@ -126,7 +125,6 @@ html[data-theme="pro"] {
   .sign-head h2,
   .btn,
   .bb-top,
-  .readouts dd,
   .logo,
   .poster-no,
   .contact-mail {
@@ -261,16 +259,6 @@ html[data-theme="pro"] {
     vertical-align: 0.1em;
   }
 
-
-  /* at a glance */
-  .readouts > div {
-    border-left: 2px solid var(--line);
-  }
-
-  .readouts dd {
-    font-weight: 650;
-    color: var(--fg);
-  }
 
   /* skills */
   .rack dt {
@@ -429,6 +417,66 @@ html[data-theme="pro"] {
     padding-top: 1.3rem;
     margin-top: 4rem;
   }
+}
+
+/* ---------- featured kudo (pull-quote under the hero, both themes) ---------- */
+.pull {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  padding-top: 0;
+}
+
+.pull-lead {
+  margin: 0.3rem 0 0 calc(1.3rem + 4px);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.pull blockquote {
+  max-width: 46rem;
+  padding-left: 1.3rem;
+  border-left: 4px solid var(--a1);
+  font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.005em;
+}
+
+.pull figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.9rem;
+  margin: 0.9rem 0 0 calc(1.3rem + 4px);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.pull figcaption b {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+html[data-theme="neon"] .pull blockquote {
+  border-left-color: var(--a3);
+  text-shadow: 0 0 18px color-mix(in srgb, var(--a3) 35%, transparent);
+}
+
+html[data-theme="neon"] .pull-lead {
+  font-family: var(--f-mono);
+  font-size: 0.74rem;
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+
+html[data-theme="neon"] .pull figcaption {
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+}
+
+html[data-theme="neon"] .pull figcaption b {
+  color: var(--a3t);
+  font-weight: 400;
 }
 
 /* ---------- professional theme: dark (default) and light ---------- */
