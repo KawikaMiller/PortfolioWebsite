@@ -38,10 +38,10 @@ export const payoff: string[] = [
   "",
   "Wow. I honestly didn't expect anyone to actually get this far.",
   "",
-  "If you like everything you've seen and read here, and you're looking to",
-  "connect, I'd love to hear from you: hello@kawikamiller.com",
+  "If your team is looking for a new member, or you'd like to connect for a",
+  "quick coffee chat, I'd love to hear from you: hello@kawikamiller.com",
   "",
-  "Coffee chat? I'll bring the Spam musubi.",
+  "I'll bring the Spam musubi.",
   "",
   "P.S. Here's a very good dog as a thank-you:",
 ];
