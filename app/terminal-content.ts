@@ -1,25 +1,47 @@
 // Copy for the hidden terminal's personal files (the `favorites/` folder and the puzzle).
 // Everything professional is generated from content.ts, so only the fun, hand-written bits live here.
-//
-// The [TODO] entries are placeholders for the owner to fill in. Replace every one of them before the
-// next release to main: `grep -rn "TODO" app/terminal-content.ts`.
 
 export const favorites = {
-  foods: ["[TODO] favorite food", "[TODO] favorite food", "[TODO] guilty-pleasure food"],
-  games: ["[TODO] favorite game", "[TODO] favorite game", "[TODO] game I keep coming back to"],
+  foods: [
+    "Main dishes: Shoyu Chicken, Lau Lau, Kalua Pig",
+    "Snack: Spam Musubi",
+    "Guilty pleasure: Anchovy Pizza",
+  ],
+  games: [
+    "In rotation: Old School RuneScape, Rocket League, Wardogs",
+    "Nostalgic favorites: Final Fantasy VII, Halo 3",
+  ],
   // Leave href empty to hide the link line.
-  playlist: { name: "[TODO] playlist name", href: "" },
+  playlist: {
+    name: "My Spotify Wrapped top 100 of 2025",
+    href: "https://open.spotify.com/playlist/37i9dQZEVXdj90r9nadiZm",
+  },
 };
 
-// The one-step puzzle. The passphrase is a design principle that runs through the whole site, so
-// anyone who actually read it can guess it. Compared case-insensitively.
-export const passphrase = "fail-closed";
+// The one-step puzzle: `decrypt note.enc` asks this question. The answer is on the favorites list in
+// this same filesystem (favorites/foods.txt), so anyone who explores finds it. Matching ignores
+// case, spaces and punctuation, so "spam musubi", "Spam Musubi!" and "spammusubi" all work.
+export const question = "What is my favorite snack food?";
+export const answer = "spam musubi";
 
-// What `decrypt note.enc fail-closed` prints. Placeholder until the owner picks a payoff.
+// A photo shown under the payoff, served from /public. It was cropped and re-encoded with no
+// embedded metadata; do the same (no GPS location!) for any replacement. Set null for no image.
+export const payoffImage: { src: string; alt: string } | null = {
+  src: "/dog.jpg",
+  alt: "My Shiba Inu grinning in a field of daisies",
+};
+
+// What a correct answer prints. One line per entry; the terminal wraps long lines, but keeping them
+// under ~80 characters reads best.
 export const payoff: string[] = [
   "decrypting ........ ok",
   "",
-  "You found it. Most people stop at `ls`.",
+  "Wow. I honestly didn't expect anyone to actually get this far.",
   "",
-  "[TODO] payoff goes here: a candid working-style note, a coffee-chat invite, a bonus story, etc.",
+  "If you like everything you've seen and read here, and you're looking to",
+  "connect, I'd love to hear from you: hello@kawikamiller.com",
+  "",
+  "Coffee chat? I'll bring the Spam musubi.",
+  "",
+  "P.S. Here's a very good dog as a thank-you:",
 ];

@@ -2,11 +2,11 @@
 // component owns the state and performs the effects, so this file is easy to test on its own.
 
 import { profile, projects, sideProjects, skills } from "../../content";
-import { payoff } from "../../terminal-content";
-import { checkPassphrase, isHidden, nodeAt, resolve, type Node } from "./fs";
+import { payoff, payoffImage, question } from "../../terminal-content";
+import { checkAnswer, isHidden, nodeAt, resolve, type Node } from "./fs";
 
 export type Theme = "pro" | "neon";
-export type Line = { text: string; cls?: "err" | "dim" | "ok" };
+export type Line = { text: string; cls?: "err" | "dim" | "ok"; img?: { src: string; alt: string } };
 /** The full-window splash, like a PC logo screen: centered logo, a loading bar and BIOS corner text. */
 export type Splash = {
   art: string[];
@@ -24,12 +24,17 @@ export type Effect =
   | { kind: "close" }
   | { kind: "theme"; to: Theme }
   | { kind: "open"; href: string };
-export type Ctx = { cwd: string[]; unlocked: boolean; theme: Theme; history: string[] };
-export type Result = { out: Line[]; cwd?: string[]; unlocked?: boolean; effect?: Effect };
+export type Ctx = { cwd: string[]; unlocked: boolean; theme: Theme; history: string[]; asking?: boolean };
+export type Result = { out: Line[]; cwd?: string[]; unlocked?: boolean; asking?: boolean; effect?: Effect };
 
 export const promptFor = (cwd: string[]) => `kawika@portfolio:${cwd.length ? "~/" + cwd.join("/") : "~"}$`;
 
 const lines = (text: string, cls?: Line["cls"]): Line[] => text.split("\n").map((t) => ({ text: t, cls }));
+// The unlocked note: the text, then the photo if one is configured.
+const payoffLines = (): Line[] => [
+  ...lines(payoff.join("\n")),
+  ...(payoffImage ? [{ text: "", img: payoffImage }] : []),
+];
 const err = (text: string): Result => ({ out: lines(text, "err") });
 const ok = (out: Line[]): Result => ({ out });
 
@@ -91,7 +96,7 @@ function cat(args: string[], ctx: Ctx): Result {
     if (!n) return err(`cat: ${a}: No such file or directory`);
     if (n.type === "dir") return err(`cat: ${a}: Is a directory`);
     if (n.locked) {
-      out.push(...(ctx.unlocked ? lines(payoff.join("\n")) : lines(n.locked.notice, "err")));
+      out.push(...(ctx.unlocked ? payoffLines() : lines(n.locked.notice, "err")));
     } else out.push(...lines(n.content));
   }
   return ok(out);
@@ -162,8 +167,19 @@ function rm(args: string[]): Result {
   return err("rm: this filesystem is read-only. I have trust issues with write access.");
 }
 
+function tryAnswer(text: string): Result {
+  if (checkAnswer(text)) return { out: payoffLines(), unlocked: true, asking: false };
+  return { out: lines("incorrect. hint: I leave my favorite things lying around in here.", "err"), asking: false };
+}
+
 export function run(input: string, ctx: Ctx): Result {
   const trimmed = input.trim();
+  // While a security question is pending, the next line typed is the answer, not a command.
+  if (ctx.asking) {
+    if (!trimmed) return ok([]);
+    if (trimmed === "cancel") return { out: lines("cancelled.", "dim"), asking: false };
+    return tryAnswer(trimmed);
+  }
   if (!trimmed) return ok([]);
   const [cmd, ...args] = trimmed.split(/\s+/);
 
@@ -218,13 +234,15 @@ export function run(input: string, ctx: Ctx): Result {
     case "vibe":
       return vibe(args, ctx);
     case "decrypt": {
-      const [fileArg, pass] = args;
-      if (!fileArg || !pass) return err("usage: decrypt note.enc <passphrase>");
+      const [fileArg, ...given] = args;
+      if (!fileArg) return err("usage: decrypt note.enc");
       const path = resolve(ctx.cwd, fileArg);
       const n = path && nodeAt(path);
       if (!n || n.type !== "file" || !n.locked) return err(`decrypt: ${fileArg}: nothing to decrypt`);
-      if (!checkPassphrase(pass)) return err("decrypt: bad passphrase. the key is on the page, not in the shell.");
-      return { out: lines(payoff.join("\n")), unlocked: true };
+      if (ctx.unlocked) return ok(payoffLines());
+      // `decrypt note.enc <answer>` works as a shortcut; otherwise ask, and the next line is the answer.
+      if (given.length) return tryAnswer(given.join(" "));
+      return { out: lines(`security question: ${question}\n(type your answer, or \`cancel\`)`), asking: true };
     }
     case "ping":
       return ok(lines("PING hello@... 64 bytes: time=0.2ms\n(just email me. it's on contact.txt.)", "dim"));

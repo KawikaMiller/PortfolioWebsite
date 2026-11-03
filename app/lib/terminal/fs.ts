@@ -13,7 +13,7 @@ import {
   teaching,
   type Project,
 } from "../../content";
-import { favorites, passphrase } from "../../terminal-content";
+import { answer, favorites } from "../../terminal-content";
 
 export type FileNode = {
   type: "file";
@@ -118,24 +118,26 @@ export const root: DirNode = dir({
       [
         "You weren't supposed to find this. Well, you were. That's why it's here.",
         "",
-        "note.enc is locked. The key is the one design principle I won't shut up about",
-        "on the rest of this site. If you read it, you know it.",
+        "note.enc is locked behind a security question. I leave my favorite things",
+        "lying around this filesystem, so a little snooping goes a long way.",
         "",
-        "usage: decrypt note.enc <passphrase>",
+        "usage: decrypt note.enc",
         "",
         "While you're here: there's a command `help` won't tell you about. It's called `vibe`.",
         "Run it. (`vibe --disable` undoes it.)",
       ].join("\n"),
     ),
-    "note.enc": file("", { notice: "note.enc: encrypted. usage: decrypt note.enc <passphrase>" }),
+    "note.enc": file("", { notice: "note.enc: encrypted. usage: decrypt note.enc" }),
     ".bash_history": file(
       ["cd ~", "ls -a", "cat .secrets/README", "# decrypt note.enc ********  <- nope, not leaving that here"].join("\n"),
     ),
   }),
 });
 
-// Passphrase check lives here so the secret and the lock stay in one module.
-export const checkPassphrase = (attempt: string) => attempt.trim().toLowerCase() === passphrase.toLowerCase();
+// The answer check lives here so the secret and the lock stay in one module. It ignores case,
+// spaces and punctuation, so "Spam Musubi!" matches "spam musubi".
+const squash = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "");
+export const checkAnswer = (attempt: string) => squash(attempt) === squash(answer);
 
 /** Resolve a user-typed path against the cwd into a segment list, or null if it leaves the root. */
 export function resolve(cwd: string[], input: string): string[] | null {

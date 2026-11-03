@@ -342,6 +342,14 @@
   color: var(--t-acc);
 }
 
+.kt-img {
+  display: block;
+  max-width: min(100%, 26rem);
+  height: auto;
+  margin: 0.4rem 0 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--t-acc) 55%, transparent);
+}
+
 .kt-ps {
   color: var(--t-acc);
 }

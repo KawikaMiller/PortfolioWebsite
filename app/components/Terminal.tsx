@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 
 import { createPortal } from "react-dom";
 import { VIBE_FADE_MS, bootFrames, complete, promptFor, run, vibeFrames, type Ctx, type Line, type Splash, type Theme } from "../lib/terminal/engine";
 
-type Entry = { kind: "in"; cwd: string[]; text: string } | ({ kind: "out" } & Line);
+type Entry = { kind: "in"; ps: string; text: string } | ({ kind: "out" } & Line);
 
 // Turns bare URLs and email addresses in output into real links.
 const LINK = /(https?:\/\/[^\s)]+|[\w.+-]+@[\w-]+\.[\w.-]+)/g;
@@ -27,6 +27,7 @@ export default function Terminal({ open, theme, onClose, onTheme }: Props) {
   const [cwd, setCwd] = useState<string[]>([]);
   const [value, setValue] = useState("");
   const [unlocked, setUnlocked] = useState(false);
+  const [asking, setAsking] = useState(false); // a security question is waiting for its answer
   const [booting, setBooting] = useState(false);
   const [vibing, setVibing] = useState(false);
   const vibeTimers = useRef<number[]>([]);
@@ -99,6 +100,7 @@ export default function Terminal({ open, theme, onClose, onTheme }: Props) {
     vibeTimers.current.forEach(window.clearTimeout);
     vibeTimers.current = [];
     setTimeout(() => {
+      setAsking(false);
       setVibing(false);
       setSplash((s) => (s?.kind === "vibe" ? null : s));
     }, 0);
@@ -135,23 +137,25 @@ export default function Terminal({ open, theme, onClose, onTheme }: Props) {
     );
   };
 
-  const ctx = (): Ctx => ({ cwd, unlocked, theme, history: history.current });
+  const ctx = (): Ctx => ({ cwd, unlocked, theme, history: history.current, asking });
+  const ps = asking ? "answer:" : promptFor(cwd);
 
   const submit = () => {
     const text = value;
     const result = run(text, ctx());
-    const next: Entry[] = [{ kind: "in", cwd, text }];
+    const next: Entry[] = [{ kind: "in", ps, text }];
     if (result.effect?.kind === "clear") {
       setEntries([]);
     } else {
       setEntries((e) => [...e, ...next, ...result.out.map((l) => ({ kind: "out" as const, ...l }))]);
     }
-    if (text.trim()) history.current.push(text);
+    if (text.trim() && !asking) history.current.push(text);
     cursor.current = history.current.length;
     draft.current = "";
     setValue("");
     if (result.cwd) setCwd(result.cwd);
     if (result.unlocked) setUnlocked(true);
+    if (result.asking !== undefined) setAsking(result.asking);
     const fx = result.effect;
     if (fx?.kind === "close") onClose();
     else if (fx?.kind === "theme") startVibe(fx.to);
@@ -187,6 +191,7 @@ export default function Terminal({ open, theme, onClose, onTheme }: Props) {
       setValue(cursor.current === h.length ? draft.current : h[cursor.current]);
     } else if (e.key === "Tab") {
       e.preventDefault(); // keeps focus inside the terminal, and Tab means "complete" here anyway
+      if (asking) return;
       const { start, options } = complete(value, ctx());
       if (options.length === 1) {
         setValue(value.slice(0, start) + options[0] + (options[0].endsWith("/") ? "" : " "));
@@ -196,7 +201,7 @@ export default function Terminal({ open, theme, onClose, onTheme }: Props) {
         setValue(value.slice(0, start) + common);
         setEntries((en) => [
           ...en,
-          { kind: "in", cwd, text: value },
+          { kind: "in", ps, text: value },
           { kind: "out", text: options.join("  ") },
         ]);
       }
@@ -238,8 +243,22 @@ export default function Terminal({ open, theme, onClose, onTheme }: Props) {
           {entries.map((en, i) =>
             en.kind === "in" ? (
               <p key={i} className="kt-line">
-                <span className="kt-ps">{promptFor(en.cwd)}</span> {en.text}
+                <span className="kt-ps">{en.ps}</span> {en.text}
               </p>
+            ) : en.img ? (
+              // A plain <img>: the site is a static export (no image optimizer), and this one photo
+              // only ever appears on demand inside the terminal.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                key={i}
+                className="kt-img"
+                src={en.img.src}
+                alt={en.img.alt}
+                onLoad={() => {
+                  const el = logRef.current;
+                  if (el) el.scrollTop = el.scrollHeight;
+                }}
+              />
             ) : (
               <p key={i} className={`kt-line ${en.cls ?? ""}`}>
                 {linkify(en.text)}
@@ -247,7 +266,7 @@ export default function Terminal({ open, theme, onClose, onTheme }: Props) {
             ),
           )}
           <label className={`kt-line kt-input${booting || vibing ? " kt-input-hidden" : ""}`}>
-            <span className="kt-ps">{promptFor(cwd)}</span>
+            <span className="kt-ps">{ps}</span>
             <input
               ref={inputRef}
               value={value}
