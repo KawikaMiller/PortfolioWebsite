@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { PALETTE_KEYS } from "../lib/palette";
+import Terminal from "./Terminal";
 
 // Two looks share one page. "pro" is the quiet default; "neon" is the original loud design and
 // is the easter egg. The choice lives in <html data-theme>, which the inline script in layout.tsx
@@ -48,7 +49,7 @@ function commit(next: Theme) {
 }
 
 const LOG: Record<Theme, string[]> = {
-  neon: ["> sudo vibe --enable", "> loading neon.css ........ ok", "> signal: ████████ 100%"],
+  neon: ["> vibe --enable", "> loading neon.css ........ ok", "> signal: ████████ 100%"],
   pro: ["> vibe --disable", "> restoring default.css ... ok", "> standing by"],
 };
 
@@ -56,9 +57,11 @@ export default function ThemeSwitch() {
   const theme = useSyncExternalStore(subscribe, getTheme, () => "pro" as Theme);
   const [fx, setFx] = useState<Theme | null>(null); // the theme being glitched toward
 
-  const go = () => {
-    if (fx) return;
-    const next: Theme = theme === "pro" ? "neon" : "pro";
+  const [open, setOpen] = useState(false);
+
+  // The theme is now flipped from inside the terminal (`vibe`); the button just opens it.
+  const switchTo = (next: Theme) => {
+    if (fx || next === theme) return;
     const root = document.documentElement;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -78,18 +81,42 @@ export default function ThemeSwitch() {
     }, DONE_AT);
   };
 
+  // Backtick opens the terminal from anywhere, unless the visitor is typing in a field.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "`" || e.ctrlKey || e.metaKey || e.altKey) return;
+      const t = e.target as HTMLElement | null;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      e.preventDefault();
+      setOpen((o) => !o);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <>
       <button
         type="button"
         className="egg"
-        onClick={go}
-        disabled={fx !== null}
-        aria-label={theme === "pro" ? "Switch to the colorful design" : "Switch to the minimal design"}
-        title={theme === "pro" ? "Switch to the colorful design" : "Back to the minimal design"}
+        onClick={() => setOpen(true)}
+        aria-label="Open terminal"
+        aria-haspopup="dialog"
+        title="Open terminal (or press `)"
       >
-        <span aria-hidden="true">{theme === "pro" ? "sudo vibe" : "exit"}</span>
+        <span aria-hidden="true">_</span>
       </button>
+      <Terminal
+        open={open}
+        theme={theme}
+        onClose={() => setOpen(false)}
+        onTheme={(to) => {
+          // Close the terminal first so the whole page is in view, then run the switch after a
+          // short pause so the visitor sees the page settle before it starts changing.
+          setOpen(false);
+          window.setTimeout(() => switchTo(to), 350);
+        }}
+      />
       {fx && (
         <div className="glitch-fx" aria-hidden="true">
           <i className="gl-flash" />

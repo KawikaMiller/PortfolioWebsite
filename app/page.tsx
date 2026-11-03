@@ -1,6 +1,7 @@
 import Barcode from "./components/Barcode";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon } from "./components/Icons";
 import ProfileDie from "./components/ProfileDie";
+import Reveal from "./components/Reveal";
 import ModeToggle from "./components/ModeToggle";
 import ThemeShuffle from "./components/ThemeShuffle";
 import ThemeSwitch from "./components/ThemeSwitch";
@@ -89,6 +90,7 @@ function Run({ items, sep }: { items: string[]; sep: string }) {
 export default function Home() {
   return (
     <div className="page">
+      <Reveal />
       <a className="skip" href="#main">
         Skip to content
       </a>
