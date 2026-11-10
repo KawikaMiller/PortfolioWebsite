@@ -83,11 +83,10 @@ export const root: DirNode = dir({
     [
       "# kawika@portfolio",
       "",
-      "Welcome. This is a fake shell over the same content as the page, so nothing here is a secret",
-      "and nothing is gated. It's just a different way to look around.",
+      "Welcome. Have a look around.",
       "",
       "Try: help, ls, cd projects, cat about.txt, tree",
-      "Poke around. Some things are hidden. `ls -a` is your friend.",
+      "Poke around. Some things are hidden.",
     ].join("\n"),
   ),
   "about.txt": file(`${profile.name}\n${profile.title}\n\n${profile.tagline}\n\n${profile.intro}`),

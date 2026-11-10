@@ -358,8 +358,7 @@ export function bootFrames(): Frame[] {
 
 export const BOOT: Line[] = [
   { text: "KM//TERMINAL  rev.A  [ link established ]", cls: "ok" },
-  { text: "read-only shell over the same content as the page. nothing here is gated.", cls: "dim" },
-  { text: "type `help` to get started. `ls -a` if you're feeling nosy.", cls: "dim" },
+  { text: "type `help` to get started.", cls: "dim" },
 ];
 
 // The wordmark is real text (shown large and glowing by CSS), typed in letter by letter. A pixel-art

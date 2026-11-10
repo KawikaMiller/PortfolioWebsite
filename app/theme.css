@@ -62,8 +62,9 @@
   display: grid;
   place-items: center;
   padding: var(--gut);
-  background: rgba(4, 5, 8, 0.72);
-  backdrop-filter: blur(3px);
+  /* no backdrop-filter here: blurring the whole page every frame while it animates underneath is
+     what made the neon theme choppy with the terminal open, so use a flat, slightly darker scrim */
+  background: rgba(4, 5, 8, 0.86);
   font-family: var(--font-mono), ui-monospace, monospace;
 }
 
@@ -1177,4 +1178,23 @@ html.glitching .page {
     width: 0;
     height: 0;
   }
+}
+
+/* While the terminal is open the page behind it is covered, so stop its looping animations and its
+   blurred top bar instead of paying to repaint them every frame. */
+html.kt-open .band-track,
+html.kt-open .bb-top,
+html.kt-open .open,
+html.kt-open .dot,
+html.kt-open .sign-meta,
+html.kt-open .egg {
+  animation-play-state: paused;
+}
+
+html.kt-open .top {
+  backdrop-filter: none;
+}
+
+html.kt-open body::after {
+  display: none;
 }

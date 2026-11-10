@@ -48,9 +48,11 @@ export default function Terminal({ open, theme, onClose, onTheme }: Props) {
     const html = document.documentElement;
     const overflow = html.style.overflow;
     html.style.overflow = "hidden";
+    html.classList.add("kt-open");
     inputRef.current?.focus();
     return () => {
       html.style.overflow = overflow;
+      html.classList.remove("kt-open");
       prev?.focus?.();
     };
   }, [open]);
