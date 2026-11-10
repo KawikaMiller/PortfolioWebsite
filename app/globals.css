@@ -335,12 +335,6 @@ blockquote {
   display: none;
 }
 
-@media (max-width: 34rem) {
-  .shuffle-label {
-    display: none;
-  }
-}
-
 /* ---------- hero ---------- */
 .hero {
   display: grid;

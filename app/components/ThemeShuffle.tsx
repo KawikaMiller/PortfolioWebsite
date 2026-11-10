@@ -89,13 +89,12 @@ export default function ThemeShuffle() {
 
   return (
     <div className="shuffle">
-      <button type="button" className="shuffle-btn" onClick={shuffle}>
+      <button type="button" className="shuffle-btn" onClick={shuffle} aria-label="Shuffle colors">
         <span className="swatches" aria-hidden="true">
           <i style={{ background: palette.a1 }} />
           <i style={{ background: palette.a2 }} />
           <i style={{ background: palette.a3 }} />
         </span>
-        <span className="shuffle-label">Shuffle colors</span>
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
           <path
             d="M3 7h3.2c1.6 0 3 .8 3.9 2.1l3.8 5.8c.9 1.3 2.3 2.1 3.9 2.1H21M3 17h3.2c1.6 0 3-.8 3.9-2.1M13.9 9.1c.9-1.3 2.3-2.1 3.9-2.1H21M18 4l3 3-3 3M18 14l3 3-3 3"
