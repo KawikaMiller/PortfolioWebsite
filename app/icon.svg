@@ -1,7 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" fill="#130f2e"/>
-  <circle cx="16" cy="14" r="7" fill="none" stroke="#c8f53a" stroke-width="2"/>
-  <path d="M16 4v3M16 21v3M6 14h3M23 14h3M9 7l2 2M21 19l2 2M23 7l-2 2M9 21l2-2" stroke="#c8f53a" stroke-width="1.6"/>
-  <path d="M5 28 C 9 20 15 20 17 28 Z" fill="#19e0ff"/>
-  <path d="M15 28 C 18 21 24 21 27 28 Z" fill="#ff3d8b"/>
+  <g fill="#c8f53a">
+    <rect x="1.50" y="9.41" width="2.64" height="2.64"/>
+    <rect x="9.41" y="9.41" width="2.64" height="2.64"/>
+    <rect x="17.32" y="9.41" width="2.64" height="2.64"/>
+    <rect x="27.86" y="9.41" width="2.64" height="2.64"/>
+    <rect x="1.50" y="12.05" width="2.64" height="2.64"/>
+    <rect x="6.77" y="12.05" width="2.64" height="2.64"/>
+    <rect x="17.32" y="12.05" width="5.27" height="2.64"/>
+    <rect x="25.23" y="12.05" width="5.27" height="2.64"/>
+    <rect x="1.50" y="14.68" width="5.27" height="2.64"/>
+    <rect x="17.32" y="14.68" width="2.64" height="2.64"/>
+    <rect x="22.59" y="14.68" width="2.64" height="2.64"/>
+    <rect x="27.86" y="14.68" width="2.64" height="2.64"/>
+    <rect x="1.50" y="17.32" width="2.64" height="2.64"/>
+    <rect x="6.77" y="17.32" width="2.64" height="2.64"/>
+    <rect x="17.32" y="17.32" width="2.64" height="2.64"/>
+    <rect x="27.86" y="17.32" width="2.64" height="2.64"/>
+    <rect x="1.50" y="19.95" width="2.64" height="2.64"/>
+    <rect x="9.41" y="19.95" width="2.64" height="2.64"/>
+    <rect x="17.32" y="19.95" width="2.64" height="2.64"/>
+    <rect x="27.86" y="19.95" width="2.64" height="2.64"/>
+  </g>
 </svg>
